@@ -1,0 +1,29 @@
+#################
+## IDE
+#################
+
+.project
+.classpath
+.loadpath
+.settings
+.gradle
+.groovy
+.idea
+.vscode
+.metadata
+*.iml
+*.tmp
+*.bak
+*.class
+*.log
+
+# Node
+node_modules/
+coverage/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
