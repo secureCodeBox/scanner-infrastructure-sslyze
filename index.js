@@ -18,7 +18,7 @@
  */
 const ScannerScaffolding = require('@securecodebox/scanner-scaffolding');
 const { worker } = require('./src/sslyze');
-const { testRun } = require('./lib/sslyze');
+const { testRun } = require('./lib/sslscan');
 
 const scanner = new ScannerScaffolding(worker, {
     engineAddress: 'http://localhost:8080',

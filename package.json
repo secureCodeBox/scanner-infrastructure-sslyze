@@ -9,7 +9,8 @@
         "start": "node index.js",
         "lint": "eslint **/*.js",
         "pretest": "eslint **/*.js",
-        "test": "jest --silent --coverage"
+        "test": "jest --silent --coverage",
+        "build-dev": "docker build -t dev_sslyze ."
     },
     "repository": {
         "type": "git",
@@ -18,6 +19,8 @@
     "dependencies": {
         "@securecodebox/scanner-scaffolding": "^2.0.1",
         "lodash": "^4.17.10",
+        "node-sslyze": "^0.0.1",
+        "sprintf-js": "^1.1.1",
         "uuid": "^3.2.1"
     },
     "devDependencies": {

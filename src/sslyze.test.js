@@ -17,8 +17,4 @@
  * /
  */
 
-describe('sslyze', () => {
-    it('should run the tests', () => {
-        expect(2).toBe(2);
-    });
-});
+ // TODO
