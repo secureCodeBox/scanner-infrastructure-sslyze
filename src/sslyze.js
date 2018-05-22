@@ -23,6 +23,9 @@ const sprintf = sprintf_js.sprintf;
 
 const sslscan = require('../lib/sslscan');
 
+/**
+ * Enum for representing the different OSI layers
+ */
 const OsiLayer = Object.freeze({
     APPLICATION: 'APPLICATION',
     PRESENTATION: 'PRESENTATION',
@@ -34,6 +37,9 @@ const OsiLayer = Object.freeze({
     NOT_APPLICABLE: 'NOT_APPLICABLE',
 });
 
+/**
+ * Enum for representing the different severity levels
+ */
 const Severity = Object.freeze({
     INFORMATIONAL: 'INFORMATIONAL',
     LOW: 'LOW',
@@ -41,6 +47,9 @@ const Severity = Object.freeze({
     HIGH: 'HIGH',
 });
 
+/**
+ * Enum for representing the different finding types
+ */
 const FindingCategory = Object.freeze({
     CERT_INFO: 'Certificate info',
     COMPRESSION: 'Compression',
@@ -58,6 +67,9 @@ const FindingCategory = Object.freeze({
     TLSV1_3: 'TLSv1.3',
 });
 
+/**
+ * Prototypes are used as a base when constructing new findings
+ */
 const FindingPrototypes = Object.freeze({
     // Certificate info findings
     CERTINFO_ERROR: {
@@ -335,11 +347,17 @@ const FindingPrototypes = Object.freeze({
     },
 });
 
+/**
+ * Build finding data structures from SSLyze results
+ */
 class FindingBuilder {
     constructor(data) {
         this.data = data;
     }
 
+    /**
+     * Transforms SSLyze results to SCB findings.
+     */
     transformData() {
         let findings = [];
 
@@ -363,6 +381,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `certinfo` data
+     */
     transformCertInfo(certinfo) {
         let findings = [];
 
@@ -490,6 +511,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `compression` data
+     */
     transformCompression(compression) {
         let findings = [];
 
@@ -515,6 +539,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `fallback` data
+     */
     transformFallback(fallback) {
         let findings = [];
 
@@ -530,6 +557,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `heartbleed` data
+     */
     transformHeartbleed(heartbleed) {
         let findings = [];
 
@@ -545,6 +575,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `openssl_ccs` data
+     */
     transformCCS(ccs) {
         let findings = [];
 
@@ -560,6 +593,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `reneg` data
+     */
     transformReneg(reneg) {
         let findings = [];
 
@@ -582,6 +618,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `resum` data
+     */
     transformResum(resum) {
         let findings = [];
 
@@ -658,6 +697,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `robot` data
+     */
     transformRobot(robot) {
         let findings = [];
 
@@ -679,6 +721,9 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Transforms SSLyze `sslv2` data
+     */
     transformSSLv2(sslv2) {
         return this.transformProtocol(
             sslv2,
@@ -687,6 +732,9 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms SSLyze `sslv3` data
+     */
     transformSSLv3(sslv3) {
         return this.transformProtocol(
             sslv3,
@@ -695,6 +743,9 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms SSLyze `tlsv1` data
+     */
     transformTLSv1(tlsv1) {
         return this.transformProtocol(
             tlsv1,
@@ -703,6 +754,9 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms SSLyze `tlsv1_1` data
+     */
     transformTLSv1_1(tlsv1_1) {
         return this.transformProtocol(
             tlsv1_1,
@@ -711,6 +765,9 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms SSLyze `tlsv1_2` data
+     */
     transformTLSv1_2(tlsv1_2) {
         return this.transformProtocol(
             tlsv1_2,
@@ -719,6 +776,9 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms SSLyze `tlsv1_3` data
+     */
     transformTLSv1_3(tlsv1_3) {
         return this.transformProtocol(
             tlsv1_3,
@@ -727,13 +787,16 @@ class FindingBuilder {
         );
     }
 
+    /**
+     * Transforms generic protocol data
+     */
     transformProtocol(protocol, supportedFinding, errorFinding) {
         let findings = [];
 
         if (protocol == null) {
             // TODO
         } else {
-            // check if SSLv2 is supported
+            // check if this protocol is supported
             if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
                 let f = Object.assign({}, supportedFinding);
                 findings.push(this.buildFinding(f));
@@ -759,6 +822,10 @@ class FindingBuilder {
         return findings;
     }
 
+    /**
+     * Builds a finding from the given data.
+     * @param {*} f finding prototype
+     */
     buildFinding(f) {
         return {
             id: uuid(),
@@ -790,6 +857,9 @@ function transform(res) {
     return findings;
 }
 
+/**
+ * Combines results from multiple SSLyze scans and joins them into one data structure
+ */
 function joinResults(results) {
     const findings = _.flatMap(results, result => result.findings);
     const rawFindings = _.map(results, result => result.raw);
@@ -800,6 +870,10 @@ function joinResults(results) {
     };
 }
 
+/**
+ * Main worker method
+ * @param {*} targets array or space seperated list of target hosts
+ */
 async function worker(targets) {
     const results = [];
     console.log(`SCANNING ${targets.length} locations`);
@@ -809,11 +883,11 @@ async function worker(targets) {
 
             console.log(`SCANNING location: ${location}, parameters:${parameter}`);
             const { res, raw } = await sslscan.scanTarget(location, parameter);
+            //console.log('res: ' + res);
             const result = transform(res);
 
             results.push({ findings: result, raw: raw });
         } catch (err) {
-            console.error(err);
             throw new Error('Failed to execute SSLyze scan.');
         }
     }
