@@ -8,9 +8,9 @@ jobs:
     - stage: build docker image
       if: branch IN (master, develop) AND type NOT pull_request
       services:
-        - docker
+      - docker
       script:
-        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        - docker build -t securecodebox/sslyze:oss --build-arg=COMMIT_ID=$TRAVIS_COMMIT --build-arg=BRANCH=$TRAVIS_BRANCH --build-arg=REPOSITORY_URL="https://github.com/secureCodeBox/scanner-infrastructure-sslyze" .
-        - docker images
-        - docker push securecodebox/sslyze:oss
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t securecodebox/sslyze:oss --build-arg=COMMIT_ID=$TRAVIS_COMMIT --build-arg=BRANCH=$TRAVIS_BRANCH --build-arg=REPOSITORY_URL="https://github.com/secureCodeBox/scanner-infrastructure-sslyze" .
+      - docker images
+      - docker push securecodebox/sslyze:oss
