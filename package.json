@@ -19,7 +19,7 @@
     "dependencies": {
         "@securecodebox/scanner-scaffolding": "^2.0.1",
         "lodash": "^4.17.10",
-        "node-sslyze": "^0.0.1",
+        "node-sslyze": "file:lib/node-sslyze",
         "sprintf-js": "^1.1.1",
         "uuid": "^3.2.1"
     },
