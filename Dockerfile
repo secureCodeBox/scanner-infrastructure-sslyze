@@ -7,10 +7,11 @@ RUN apt-get update && \
     apt-get -y clean
 
 COPY package.json package-lock.json /src/
+COPY lib/ src/lib/
 
 WORKDIR /src
 
-RUN ls
+RUN ls -l
 
 RUN pip install sslyze && \
     python -m sslyze --update_trust_store
@@ -18,7 +19,9 @@ RUN npm install --production
 
 COPY . /src
 
-RUN addgroup -S sslyze_group && adduser -S -g sslyze_group sslyze_user 
+RUN ls -l
+
+RUN addgroup --system sslyze_group && adduser --system --ingroup sslyze_group sslyze_user 
 
 USER sslyze_user
 
