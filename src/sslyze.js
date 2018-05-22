@@ -24,307 +24,315 @@ const sprintf = sprintf_js.sprintf;
 const sslscan = require('../lib/sslscan');
 
 const OsiLayer = Object.freeze({
-    APPLICATION: "APPLICATION",
-    PRESENTATION: "PRESENTATION",
-    SESSION: "SESSION",
-    TRANSPORT: "TRANSPORT",
-    NETWORK: "NETWORK",
-    DATA_LINK: "DATA_LINK",
-    PHYSICAL: "PHYSICAL",
-    NOT_APPLICABLE: "NOT_APPLICABLE"
+    APPLICATION: 'APPLICATION',
+    PRESENTATION: 'PRESENTATION',
+    SESSION: 'SESSION',
+    TRANSPORT: 'TRANSPORT',
+    NETWORK: 'NETWORK',
+    DATA_LINK: 'DATA_LINK',
+    PHYSICAL: 'PHYSICAL',
+    NOT_APPLICABLE: 'NOT_APPLICABLE',
 });
 
 const Severity = Object.freeze({
-    INFORMATIONAL: "INFORMATIONAL",
-    LOW: "LOW",
-    MEDIUM: "MEDIUM",
-    HIGH: "HIGH"
+    INFORMATIONAL: 'INFORMATIONAL',
+    LOW: 'LOW',
+    MEDIUM: 'MEDIUM',
+    HIGH: 'HIGH',
 });
 
 const FindingCategory = Object.freeze({
-    CERT_INFO: "Certificate info",
-    COMPRESSION: "Compression",
-    FALLBACK : "Fallback",
-    HEARTBLEED : "Heartbleed",
-    CCS : "CCS",
-    RENEG : "Renegotiation",
-    RESUM : "Resumption",
-    ROBOT : "Robot",
-    SSLV2 : "SSLv2",
-    SSLV3 : "SSLv3",
-    TLSV1 : "TLSv1",
-    TLSV1_1 : "TLSv1.1",
-    TLSV1_2 : "TLSv1.2",
-    TLSV1_3 : "TLSv1.3"
+    CERT_INFO: 'Certificate info',
+    COMPRESSION: 'Compression',
+    FALLBACK: 'Fallback',
+    HEARTBLEED: 'Heartbleed',
+    CCS: 'CCS',
+    RENEG: 'Renegotiation',
+    RESUM: 'Resumption',
+    ROBOT: 'Robot',
+    SSLV2: 'SSLv2',
+    SSLV3: 'SSLv3',
+    TLSV1: 'TLSv1',
+    TLSV1_1: 'TLSv1.1',
+    TLSV1_2: 'TLSv1.2',
+    TLSV1_3: 'TLSv1.3',
 });
 
 const FindingPrototypes = Object.freeze({
     // Certificate info findings
     CERTINFO_ERROR: {
-        name : "Certificate info error",
-        description : "Certificate info could not be retrieved due to error '%s'",
-        osi_layer : OsiLayer.NOT_APPLICABLE,
-        severity : Severity.HIGH,
-        category : FindingCategory.CERT_INFO
+        name: 'Certificate info error',
+        description: 'Certificate info could not be retrieved due to error: %s',
+        osi_layer: OsiLayer.NOT_APPLICABLE,
+        severity: Severity.HIGH,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_HAS_MUST_STAPLE_EXTENSION: {
-        name : "Certificate has Must-Staple",
-        description : "Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'Certificate has Must-Staple',
+        description: 'Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_INCLUDES_SCTS_COUNT: {
-        name : "Certificate includes SCTS count",
-        description : "The number of Signed Certificate Timestamps (SCTs) for Certificate Transparency is embedded in the leaf certificate. Its value is '%d'",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'Certificate includes SCTS count',
+        description:
+            'The number of Signed Certificate Timestamps (SCTs) for Certificate Transparency is embedded in the leaf certificate. Its value is %d.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_NO_ANCHOR_IN_CERTIFICATE_CHAIN: {
-        name : "No anchor/root certificate sent",
-        description : "The server did not include the anchor/root certificate in the chain.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'No anchor/root certificate sent',
+        description: 'The server did not include the anchor/root certificate in the chain.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_SHA1_IN_CERTIFICATE_CHAIN: {
-        name : "SHA1 in certificate chain",
-        description : "Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'SHA1 in certificate chain',
+        description:
+            'Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_CHAIN_ORDER_INVALID: {
-        name : "Chain order invalid",
-        description : "The chain order sent by the server is invalid.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'Chain order invalid',
+        description: 'The chain order sent by the server is invalid.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_NOT_EV: {
-        name : "No extended validation certificate",
-        description : "The certificate has not been validated by the certificate authority according to the standardized set of requirements set out in the CA/Browser Forum Extended Validation Certificate Guidelines. (https://wiki.mozilla.org/EV)",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'No extended validation certificate',
+        description:
+            'The certificate has not been validated by the certificate authority according to the standardized set of requirements set out in the CA/Browser Forum Extended Validation Certificate Guidelines. (https://wiki.mozilla.org/EV)',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_NO_OCSP_RESPONSE: {
-        name : "No OCSP response",
-        description : "The server did not send an OCSP response.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'No OCSP response',
+        description: 'The server did not send an OCSP response.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_OCSP_RESPONSE_IS_NOT_TRUSTED: {
-        name : "OCSP response not trusted",
-        description : "The server sent an OCSP response which is not trusted using the Mozilla trust store.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'OCSP response not trusted',
+        description:
+            'The server sent an OCSP response which is not trusted using the Mozilla trust store.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_HAS_PATH_VALIDATION_ERROR: {
-        name : "Certificate chain validation error",
-        description : "An error occurred while attempting to validate the server's certificate chain: '%s'",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'Certificate chain validation error',
+        description:
+            "An error occurred while attempting to validate the server's certificate chain: %s", // eslint-disable-line
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     CERTINFO_WILL_BE_DISTRUSTED: {
-        name : "Certificate will be distrusted",
-        description : "The certificate was issued by one of the Symantec CAs and will be distrusted in Chrome and Firefox in '%s'",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.CERT_INFO
+        name: 'Certificate will be distrusted',
+        description:
+            'The certificate was issued by one of the Symantec CAs and will be distrusted in Chrome and Firefox in %s.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.CERT_INFO,
     },
     // Compression findings
     COMPRESSION_METHOD_EXPOSED: {
-        name : "Compression method exposed",
-        description : "The server supports the compression algorithm '%s'",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.COMPRESSION
+        name: 'Compression method exposed',
+        description: 'The server supports the compression algorithm %s.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.COMPRESSION,
     },
     // Fallback findings
     FALLBACK_NO_SCSV_SUPPORT: {
-        name : "No SCSV fallback support",
-        description : "The server does not support the SCSV cipher suite which would prevent downgrade attacks if it was supported.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.FALLBACK
+        name: 'No SCSV fallback support',
+        description:
+            'The server does not support the SCSV cipher suite which would prevent downgrade attacks if it was supported.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.FALLBACK,
     },
     // Heartbleed findings
     HEARTBLEED_VULNERABLE: {
-        name : "Vulnerable to Heartbleed",
-        description : "The server is vulnerable to the Heartbleed attack.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.HIGH,
-        category : FindingCategory.HEARTBLEED
+        name: 'Vulnerable to Heartbleed',
+        description: 'The server is vulnerable to the Heartbleed attack.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.HIGH,
+        category: FindingCategory.HEARTBLEED,
     },
     // CCS injection findings
     CCS_VULNERABLE: {
-        name : "Vulnerable to CCS injection",
-        description : "The server is vulnerable to OpenSSL's CCS injection issue.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.HIGH,
-        category : FindingCategory.CCS
+        name: 'Vulnerable to CCS injection',
+        description: "The server is vulnerable to OpenSSL's CCS injection issue.", // eslint-disable-line
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.HIGH,
+        category: FindingCategory.CCS,
     },
     // Renegotiation findings
     RENEG_ACCEPTED: {
-        name : "Accepts client renegotiation",
-        description : "The server honors client-initiated renegotiation attempts.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.HIGH,
-        category : FindingCategory.RENEG
+        name: 'Accepts client renegotiation',
+        description: 'The server honors client-initiated renegotiation attempts.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.HIGH,
+        category: FindingCategory.RENEG,
     },
     RENEG_NO_SECURE_SUPPORT: {
-        name : "No support for secure renegotiation",
-        description : "The server does not support secure renegotiation.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.HIGH,
-        category : FindingCategory.RENEG
+        name: 'No support for secure renegotiation',
+        description: 'The server does not support secure renegotiation.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.HIGH,
+        category: FindingCategory.RENEG,
     },
     // Session resumption findings
     RESUM_ERROR: {
-        name : "Session resumption error",
-        description : "Session resumption information could not be retrieved due to error '%s'.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.RESUM
+        name: 'Session resumption error',
+        description: 'Session resumption information could not be retrieved due to error: %s',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.RESUM,
     },
     RESUM_TICKET_RESUMPTION_UNSUPPORTED: {
-        name : "Ticket resumption not supported",
-        description : "The server does not support session resumption through ticket encapsulation.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.RESUM
+        name: 'Ticket resumption not supported',
+        description: 'The server does not support session resumption through ticket encapsulation.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.RESUM,
     },
     RESUM_TICKET_RESUMPTION_SUPPORTED: {
-        name : "Ticket resumption supported",
-        description : "The server supports session resumption through ticket encapsulation.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.RESUM
+        name: 'Ticket resumption supported',
+        description: 'The server supports session resumption through ticket encapsulation.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.RESUM,
     },
     RESUM_SUCCEEDED: {
-        name : "Session resumption succeeded",
-        description : "At least one session resumption succeeded.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.RESUM
+        name: 'Session resumption succeeded',
+        description: 'At least one session resumption succeeded.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.RESUM,
     },
     RESUM_FAILED: {
-        name : "Session resumption failed",
-        description : "At least one session resumption failed.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.RESUM
+        name: 'Session resumption failed',
+        description: 'At least one session resumption failed.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.RESUM,
     },
     // ROBOT findings
     ROBOT_VULNERABLE: {
-        name : "Vulnerable to ROBOT attack",
-        description : "The server is vulnerable to the \"Return Of Bleichenbacher's Oracle Threat\".",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.HIGH,
-        category : FindingCategory.ROBOT
+        name: 'Vulnerable to ROBOT attack',
+        description: 'The server is vulnerable to the "Return Of Bleichenbacher\'s Oracle Threat".',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.HIGH,
+        category: FindingCategory.ROBOT,
     },
     ROBOT_PROBABLY_VULNERABLE: {
-        name : "Probably vulnerable to ROBOT attack",
-        description : "The server may be vulnerable to the \"Return Of Bleichenbacher's Oracle Threat\". However, the results were inconsistent.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.ROBOT
+        name: 'Probably vulnerable to ROBOT attack',
+        description:
+            'The server may be vulnerable to the "Return Of Bleichenbacher\'s Oracle Threat". However, the results were inconsistent.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.MEDIUM,
+        category: FindingCategory.ROBOT,
     },
     // SSLv2 findings
     SSLV2_SUPPORTED: {
-        name : "SSLv2 supported",
-        description : "The server supports at least one cipher suite using the SSLv2 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.SSLV2
+        name: 'SSLv2 supported',
+        description: 'The server supports at least one cipher suite using the SSLv2 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.SSLV2,
     },
     SSLV2_ERROR: {
-        name : "SSLv2 negotation error",
-        description : "At least one error occurred during negotiation using the SSLv2 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.SSLV2
+        name: 'SSLv2 negotation error',
+        description: 'At least one error occurred during negotiation using the SSLv2 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.SSLV2,
     },
     // SSLv3 findings
     SSLV3_SUPPORTED: {
-        name : "SSLv3 supported",
-        description : "The server supports at least one cipher suite using the SSLv3 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.SSLV3
+        name: 'SSLv3 supported',
+        description: 'The server supports at least one cipher suite using the SSLv3 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.SSLV3,
     },
     SSLV3_ERROR: {
-        name : "SSLv3 negotation error",
-        description : "At least one error occurred during negotiation using the SSLv3 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.SSLV3
+        name: 'SSLv3 negotation error',
+        description: 'At least one error occurred during negotiation using the SSLv3 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.SSLV3,
     },
     // TLSv1 findings
     TLSV1_SUPPORTED: {
-        name : "TLSv1 supported",
-        description : "The server supports at least one cipher suite using the TLSv1 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.TLSV1
+        name: 'TLSv1 supported',
+        description: 'The server supports at least one cipher suite using the TLSv1 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1,
     },
     TLSV1_ERROR: {
-        name : "TLSv1 negotation error",
-        description : "At least one error occurred during negotiation using the TLSv1 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.TLSV1
+        name: 'TLSv1 negotation error',
+        description: 'At least one error occurred during negotiation using the TLSv1 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1,
     },
     // TLSv1.1 findings
     TLSV1_1_SUPPORTED: {
-        name : "TLSv1.1 support",
-        description : "The server supports at least one cipher suite using the TLSv1.1 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.TLSV1_1
+        name: 'TLSv1.1 supported',
+        description: 'The server supports at least one cipher suite using the TLSv1.1 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_1,
     },
     TLSV1_1_ERROR: {
-        name : "TLSv1.1 negotation error",
-        description : "At least one error occurred during negotiation using the TLSv1.1 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.TLSV1_1
+        name: 'TLSv1.1 negotation error',
+        description: 'At least one error occurred during negotiation using the TLSv1.1 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_1,
     },
     // TLSv1.2 findings
     TLSV1_2_SUPPORTED: {
-        name : "TLSv1.2 support",
-        description : "The server supports at least one cipher suite using the TLSv1.2 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.TLSV1_2
+        name: 'TLSv1.2 supported',
+        description: 'The server supports at least one cipher suite using the TLSv1.2 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_2,
     },
     TLSV1_2_ERROR: {
-        name : "TLSv1.2 negotation error",
-        description : "At least one error occurred during negotiation using the TLSv1.2 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.TLSV1_2
+        name: 'TLSv1.2 negotation error',
+        description: 'At least one error occurred during negotiation using the TLSv1.2 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_2,
     },
     // TLSv1.3 findings
     TLSV1_3_SUPPORTED: {
-        name : "TLSv1.1 support",
-        description : "The server supports at least one cipher suite using the TLSv1.3 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.INFORMATIONAL,
-        category : FindingCategory.TLSV1_3
+        name: 'TLSv1.3 supported',
+        description: 'The server supports at least one cipher suite using the TLSv1.3 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_3,
     },
     TLSV1_3_ERROR: {
-        name : "TLSv1.3 negotation error",
-        description : "At least one error occurred during negotiation using the TLSv1.3 protocol.",
-        osi_layer : OsiLayer.PRESENTATION,
-        severity : Severity.MEDIUM,
-        category : FindingCategory.TLSV1_3
-    }
+        name: 'TLSv1.3 negotation error',
+        description: 'At least one error occurred during negotiation using the TLSv1.3 protocol.',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.INFORMATIONAL,
+        category: FindingCategory.TLSV1_3,
+    },
 });
 
 class FindingBuilder {
@@ -336,7 +344,9 @@ class FindingBuilder {
         let findings = [];
 
         findings = findings.concat(this.transformCertInfo(this.data.commands_results.certinfo));
-        findings = findings.concat(this.transformCompression(this.data.commands_results.compression));
+        findings = findings.concat(
+            this.transformCompression(this.data.commands_results.compression)
+        );
         findings = findings.concat(this.transformFallback(this.data.commands_results.fallback));
         findings = findings.concat(this.transformHeartbleed(this.data.commands_results.heartbleed));
         findings = findings.concat(this.transformCCS(this.data.commands_results.openssl_ccs));
@@ -351,7 +361,7 @@ class FindingBuilder {
         findings = findings.concat(this.transformTLSv1_3(this.data.commands_results.tlsv1_3));
 
         return findings;
-    } 
+    }
 
     transformCertInfo(certinfo) {
         let findings = [];
@@ -360,12 +370,15 @@ class FindingBuilder {
             // TODO
         } else if (certinfo.error_message != null) {
             // add error finding
-            let f = Object.assign({
-                attributes: {
-                    error: certinfo.error_message
-                }
-            }, FindingPrototypes.CERTINFO_ERROR);
-    
+            let f = Object.assign(
+                {
+                    attributes: {
+                        error: certinfo.error_message,
+                    },
+                },
+                FindingPrototypes.CERTINFO_ERROR
+            );
+
             f.description = sprintf(f.description, certinfo.error_message);
 
             findings.push(this.buildFinding(f));
@@ -379,12 +392,18 @@ class FindingBuilder {
             }
 
             // check for SCTS count
-            if (certinfo.certificate_included_scts_count != null && certinfo.certificate_included_scts_count != 0) {
-                let f = Object.assign({
-                    attributes: {
-                        scts_count: certinfo.certificate_included_scts_count
-                    }
-                }, FindingPrototypes.CERTINFO_INCLUDES_SCTS_COUNT);
+            if (
+                certinfo.certificate_included_scts_count != null &&
+                certinfo.certificate_included_scts_count != 0
+            ) {
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            scts_count: certinfo.certificate_included_scts_count,
+                        },
+                    },
+                    FindingPrototypes.CERTINFO_INCLUDES_SCTS_COUNT
+                );
 
                 f.description = sprintf(f.description, certinfo.certificate_included_scts_count);
 
@@ -392,8 +411,11 @@ class FindingBuilder {
             }
 
             // check for anchor in certificate chain
-            if (! certinfo.has_anchor_in_certificate_chain) {
-                let f = Object.assign({}, FindingPrototypes.CERTINFO_NO_ANCHOR_IN_CERTIFICATE_CHAIN);
+            if (!certinfo.has_anchor_in_certificate_chain) {
+                let f = Object.assign(
+                    {},
+                    FindingPrototypes.CERTINFO_NO_ANCHOR_IN_CERTIFICATE_CHAIN
+                );
                 findings.push(this.buildFinding(f));
             }
 
@@ -404,7 +426,7 @@ class FindingBuilder {
             }
 
             // check for valid certificate chain order
-            if (certinfo.is_certificate_chain_order_valid) {
+            if (!certinfo.is_certificate_chain_order_valid) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_CHAIN_ORDER_INVALID);
                 findings.push(this.buildFinding(f));
             }
@@ -422,33 +444,42 @@ class FindingBuilder {
             } else {
                 // check if OCSP response is trusted
                 if (!certinfo.is_ocsp_response_trusted) {
-                    let f = Object.assign({}, FindingPrototypes.CERTINFO_OCSP_RESPONSE_IS_NOT_TRUSTED);
+                    let f = Object.assign(
+                        {},
+                        FindingPrototypes.CERTINFO_OCSP_RESPONSE_IS_NOT_TRUSTED
+                    );
                     findings.push(this.buildFinding(f));
                 }
             }
 
             // check if a path validation error occurred
             if (certinfo.path_validation_error_list != null) {
-                for (const path_validation_error of res.path_validation_error_list) {
-                    let f = Object.assign({
-                        attributes: {
-                            error: path_validation_error.error_message
-                        }
-                    }, FindingPrototypes.CERTINFO_HAS_PATH_VALIDATION_ERROR);
-    
+                for (const path_validation_error of certinfo.path_validation_error_list) {
+                    let f = Object.assign(
+                        {
+                            attributes: {
+                                error: path_validation_error.error_message,
+                            },
+                        },
+                        FindingPrototypes.CERTINFO_HAS_PATH_VALIDATION_ERROR
+                    );
+
                     f.description = sprintf(f.description, path_validation_error.error_message);
-    
+
                     findings.push(this.buildFinding(f));
                 }
             }
 
             // check if certificate will be distrusted
             if (certinfo.symantec_distrust_timeline != null) {
-                let f = Object.assign({
-                    attributes: {
-                        distrust_timeline: certinfo.symantec_distrust_timeline
-                    }
-                }, FindingPrototypes.CERTINFO_WILL_BE_DISTRUSTED);
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            distrust_timeline: certinfo.symantec_distrust_timeline,
+                        },
+                    },
+                    FindingPrototypes.CERTINFO_WILL_BE_DISTRUSTED
+                );
 
                 f.description = sprintf(f.description, certinfo.symantec_distrust_timeline);
 
@@ -461,17 +492,20 @@ class FindingBuilder {
 
     transformCompression(compression) {
         let findings = [];
-    
+
         if (compression == null) {
             // TODO
         }
         // check for exposed compression
         else if (compression.compression_name != null) {
-            let f = Object.assign({
-                attributes: {
-                    name: compression.compression_name
-                }
-            }, FindingPrototypes.COMPRESSION_METHOD_EXPOSED);
+            let f = Object.assign(
+                {
+                    attributes: {
+                        name: compression.compression_name,
+                    },
+                },
+                FindingPrototypes.COMPRESSION_METHOD_EXPOSED
+            );
 
             f.description = sprintf(f.description, compression.compression_name);
 
@@ -488,7 +522,7 @@ class FindingBuilder {
             // TODO
         }
         // check for SCSV fallback support
-        else if (! fallback.supports_fallback_scsv) {
+        else if (!fallback.supports_fallback_scsv) {
             let f = Object.assign({}, FindingPrototypes.FALLBACK_NO_SCSV_SUPPORT);
             findings.push(this.buildFinding(f));
         }
@@ -528,7 +562,7 @@ class FindingBuilder {
 
     transformReneg(reneg) {
         let findings = [];
-    
+
         if (reneg == null) {
             // TODO
         } else {
@@ -537,9 +571,9 @@ class FindingBuilder {
                 let f = Object.assign({}, FindingPrototypes.RENEG_ACCEPTED);
                 findings.push(this.buildFinding(f));
             }
-            
+
             // check if server supports secure renegotiation
-            if (! reneg.supports_secure_renegotiation) {
+            if (!reneg.supports_secure_renegotiation) {
                 let f = Object.assign({}, FindingPrototypes.RENEG_NO_SECURE_SUPPORT);
                 findings.push(this.buildFinding(f));
             }
@@ -550,31 +584,44 @@ class FindingBuilder {
 
     transformResum(resum) {
         let findings = [];
-    
+
         if (resum == null) {
             // TODO
-        } else if (resum.ticket_resumption_exception != null) {
-            // add error finding
-            let f = Object.assign({
-                attributes: {
-                    error: resum.ticket_resumption_exception
-                }
-            }, FindingPrototypes.RESUM_ERROR);
-    
-            f.description = sprintf(f.description, resum.ticket_resumption_exception);
+        } else if (
+            resum.ticket_resumption_exception != null ||
+            resum.ticket_resumption_error != null
+        ) {
+            // add error findings
 
-            findings.push(this.buildFinding(f));
-        } else if (resum.ticket_resumption_error != null) {
-            // add error finding
-            let f = Object.assign({
-                attributes: {
-                    error: resum.ticket_resumption_error
-                }
-            }, FindingPrototypes.RESUM_ERROR);
-    
-            f.description = sprintf(f.description, resum.ticket_resumption_error);
+            if (resum.ticket_resumption_exception != null) {
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            error: resum.ticket_resumption_exception,
+                        },
+                    },
+                    FindingPrototypes.RESUM_ERROR
+                );
 
-            findings.push(this.buildFinding(f));
+                f.description = sprintf(f.description, resum.ticket_resumption_exception);
+
+                findings.push(this.buildFinding(f));
+            }
+
+            if (resum.ticket_resumption_error != null) {
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            error: resum.ticket_resumption_error,
+                        },
+                    },
+                    FindingPrototypes.RESUM_ERROR
+                );
+
+                f.description = sprintf(f.description, resum.ticket_resumption_error);
+
+                findings.push(this.buildFinding(f));
+            }
         } else {
             // add ordinary findings
 
@@ -595,11 +642,14 @@ class FindingBuilder {
 
             // check if there are failed session resumptions
             if (resum.failed_resumptions_nb > 0) {
-                let f = Object.assign({
-                    attributes: {
-                        error: resum.ticket_resumption_error
-                    }
-                }, FindingPrototypes.RESUM_FAILED);
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            error: resum.ticket_resumption_failed_reason,
+                        },
+                    },
+                    FindingPrototypes.RESUM_FAILED
+                );
 
                 findings.push(this.buildFinding(f));
             }
@@ -610,16 +660,18 @@ class FindingBuilder {
 
     transformRobot(robot) {
         let findings = [];
-    
+
         if (robot == null) {
             // TODO
         }
         // check for ROBOT vulnerability
-        else if ("VULNERABLE_WEAK_ORACLE" == robot.robot_result_enum ||
-            "VULNERABLE_STRONG_ORACLE" == robot.robot_result_enum) {
+        else if (
+            'VULNERABLE_WEAK_ORACLE' == robot.robot_result_enum ||
+            'VULNERABLE_STRONG_ORACLE' == robot.robot_result_enum
+        ) {
             let f = Object.assign({}, FindingPrototypes.ROBOT_VULNERABLE);
             findings.push(this.buildFinding(f));
-        } else if ("UNKNOWN_INCONSISTENT_RESULTS" == robot.robot_result_enum) {
+        } else if ('UNKNOWN_INCONSISTENT_RESULTS' == robot.robot_result_enum) {
             let f = Object.assign({}, FindingPrototypes.ROBOT_PROBABLY_VULNERABLE);
             findings.push(this.buildFinding(f));
         }
@@ -628,27 +680,51 @@ class FindingBuilder {
     }
 
     transformSSLv2(sslv2) {
-        return this.transformProtocol(sslv2, FindingPrototypes.SSLV2_SUPPORTED, FindingPrototypes.SSLV2_ERROR);
+        return this.transformProtocol(
+            sslv2,
+            FindingPrototypes.SSLV2_SUPPORTED,
+            FindingPrototypes.SSLV2_ERROR
+        );
     }
 
     transformSSLv3(sslv3) {
-        return this.transformProtocol(sslv3, FindingPrototypes.SSLV3_SUPPORTED, FindingPrototypes.SSLV3_ERROR);
+        return this.transformProtocol(
+            sslv3,
+            FindingPrototypes.SSLV3_SUPPORTED,
+            FindingPrototypes.SSLV3_ERROR
+        );
     }
 
     transformTLSv1(tlsv1) {
-        return this.transformProtocol(tlsv1, FindingPrototypes.TLSV1_SUPPORTED, FindingPrototypes.TLSV1_ERROR);
+        return this.transformProtocol(
+            tlsv1,
+            FindingPrototypes.TLSV1_SUPPORTED,
+            FindingPrototypes.TLSV1_ERROR
+        );
     }
 
     transformTLSv1_1(tlsv1_1) {
-        return this.transformProtocol(tlsv1_1, FindingPrototypes.TLSV1_1_SUPPORTED, FindingPrototypes.TLSV1_1_ERROR);
+        return this.transformProtocol(
+            tlsv1_1,
+            FindingPrototypes.TLSV1_1_SUPPORTED,
+            FindingPrototypes.TLSV1_1_ERROR
+        );
     }
 
     transformTLSv1_2(tlsv1_2) {
-        return this.transformProtocol(tlsv1_2, FindingPrototypes.TLSV1_2_SUPPORTED, FindingPrototypes.TLSV1_2_ERROR);
+        return this.transformProtocol(
+            tlsv1_2,
+            FindingPrototypes.TLSV1_2_SUPPORTED,
+            FindingPrototypes.TLSV1_2_ERROR
+        );
     }
 
     transformTLSv1_3(tlsv1_3) {
-        return this.transformProtocol(tlsv1_3, FindingPrototypes.TLSV1_3_SUPPORTED, FindingPrototypes.TLSV1_3_ERROR);
+        return this.transformProtocol(
+            tlsv1_3,
+            FindingPrototypes.TLSV1_3_SUPPORTED,
+            FindingPrototypes.TLSV1_3_ERROR
+        );
     }
 
     transformProtocol(protocol, supportedFinding, errorFinding) {
@@ -656,22 +732,27 @@ class FindingBuilder {
 
         if (protocol == null) {
             // TODO
-        }
-        // check if SSLv2 is supported
-        else if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
-            let f = Object.assign({}, supportedFinding);
-            findings.push(this.buildFinding(f));
-        }
-
-        // check for errors
-        if (protocol.errored_cipher_list != null) {
-            for (const errorred_cipher of protocol.errored_cipher_list) {
-                let f = Object.assign({
-                    attributes: {
-                        error: errorred_cipher.error_message
-                    }
-                }, errorFinding);
+        } else {
+            // check if SSLv2 is supported
+            if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
+                let f = Object.assign({}, supportedFinding);
                 findings.push(this.buildFinding(f));
+            }
+
+            // check for errors
+            if (protocol.errored_cipher_list != null) {
+                for (const errored_cipher of protocol.errored_cipher_list) {
+                    let f = Object.assign(
+                        {
+                            attributes: {
+                                cipher: errored_cipher.name,
+                                error: errored_cipher.error_message,
+                            },
+                        },
+                        errorFinding
+                    );
+                    findings.push(this.buildFinding(f));
+                }
             }
         }
 
@@ -715,7 +796,7 @@ function joinResults(results) {
 
     return {
         result: findings,
-        raw: rawFindings
+        raw: rawFindings,
     };
 }
 

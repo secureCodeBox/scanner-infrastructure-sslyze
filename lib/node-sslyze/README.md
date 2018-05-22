@@ -31,7 +31,7 @@ TODO: more to come
 * `'error'` : event - triggers when an error is encountered.  Returns error object.
 
 ## Usage
-RegularScan is the core function of the package.  It emits two events: `'complete'` and `'error'`.  Both of these events return data.  All methods are easy to set up.  Simply define a variable as one of the methods, and that variable will become a new instance of RegularScan with appropriately set commands.
+RegularScan is the core function of the package.  It emits two events: `'complete'` and `'error'`.  Both of these events return data.
 
 The return structure is:
 
@@ -43,6 +43,7 @@ The return structure is:
     "invalid_targets" : [
         {
           string: string
+          // key: host, value: error message
         }, ...
     ],
     "sslyze_url" : string,
@@ -251,15 +252,15 @@ The return structure is:
 ```javascript
 {
   "accepted_cipher_list" : [
-    AcceptedCipher, ...
+    AcceptedCipherSuite, ...
   ],
   "errored_cipher_list" : [
-    ErroredCipher, ...
+    ErroredCipherSuite, ...
   ],
   "rejected_cipher_list" : [
-    RejectedCipher, ...
+    RejectedCipherSuite, ...
   ],
-  "prefered_cipher" : AcceptedCipher
+  "prefered_cipher" : AcceptedCipherSuite
 }
 ```
 
@@ -298,7 +299,7 @@ The return structure is:
 }
 ```
 
-### AcceptedCipher
+### AcceptedCipherSuite
 ```javascript
 {
   "dh_info": { ... },
@@ -318,16 +319,6 @@ The return structure is:
   "ssl_version" : string,
   "is_anonymous" : bool,
   "error_message" : string
-}
-```
-
-### RejectedCipherSuite
-```javascript
-{
-  "handshake_error_message": string,
-  "is_anonymous": bool,
-  "openssl_name": string,
-  "ssl_version": string
 }
 ```
 
