@@ -397,8 +397,10 @@ class FindingBuilder {
         let findings = [];
 
         if (certinfo == null) {
-            // TODO
-        } else if (certinfo.error_message != null) {
+            return findings;
+        }
+
+        if (certinfo.error_message != null) {
             // add error finding
             let f = Object.assign(
                 {
@@ -553,10 +555,11 @@ class FindingBuilder {
         let findings = [];
 
         if (compression == null) {
-            // TODO
+            return findings;
         }
+
         // check for exposed compression
-        else if (compression.compression_name != null) {
+        if (compression.compression_name != null) {
             let f = Object.assign(
                 {
                     attributes: {
@@ -581,10 +584,11 @@ class FindingBuilder {
         let findings = [];
 
         if (fallback == null) {
-            // TODO
+            return findings;
         }
+
         // check for SCSV fallback support
-        else if (!fallback.supports_fallback_scsv) {
+        if (!fallback.supports_fallback_scsv) {
             let f = Object.assign({}, FindingPrototypes.FALLBACK_NO_SCSV_SUPPORT);
             findings.push(this.buildFinding(f));
         }
@@ -599,10 +603,11 @@ class FindingBuilder {
         let findings = [];
 
         if (heartbleed == null) {
-            // TODO
+            return findings;
         }
+
         // check for Heartbleed vulnerability
-        else if (heartbleed.is_vulnerable_to_heartbleed) {
+        if (heartbleed.is_vulnerable_to_heartbleed) {
             let f = Object.assign({}, FindingPrototypes.HEARTBLEED_VULNERABLE);
             findings.push(this.buildFinding(f));
         }
@@ -617,8 +622,9 @@ class FindingBuilder {
         let findings = [];
 
         if (ccs == null) {
-            // TODO
+            return findings;
         }
+
         // check for CCS vulnerability
         else if (ccs.is_vulnerable_to_ccs_injection) {
             let f = Object.assign({}, FindingPrototypes.CCS_VULNERABLE);
@@ -635,19 +641,19 @@ class FindingBuilder {
         let findings = [];
 
         if (reneg == null) {
-            // TODO
-        } else {
-            // check if server accepts client renegotiation
-            if (reneg.accepts_client_renegotiation) {
-                let f = Object.assign({}, FindingPrototypes.RENEG_ACCEPTED);
-                findings.push(this.buildFinding(f));
-            }
+            return findings;
+        }
 
-            // check if server supports secure renegotiation
-            if (!reneg.supports_secure_renegotiation) {
-                let f = Object.assign({}, FindingPrototypes.RENEG_NO_SECURE_SUPPORT);
-                findings.push(this.buildFinding(f));
-            }
+        // check if server accepts client renegotiation
+        if (reneg.accepts_client_renegotiation) {
+            let f = Object.assign({}, FindingPrototypes.RENEG_ACCEPTED);
+            findings.push(this.buildFinding(f));
+        }
+
+        // check if server supports secure renegotiation
+        if (!reneg.supports_secure_renegotiation) {
+            let f = Object.assign({}, FindingPrototypes.RENEG_NO_SECURE_SUPPORT);
+            findings.push(this.buildFinding(f));
         }
 
         return findings;
@@ -660,11 +666,10 @@ class FindingBuilder {
         let findings = [];
 
         if (resum == null) {
-            // TODO
-        } else if (
-            resum.ticket_resumption_exception != null ||
-            resum.ticket_resumption_error != null
-        ) {
+            return findings;
+        }
+
+        if (resum.ticket_resumption_exception != null || resum.ticket_resumption_error != null) {
             // add error findings
 
             if (resum.ticket_resumption_exception != null) {
@@ -739,10 +744,11 @@ class FindingBuilder {
         let findings = [];
 
         if (robot == null) {
-            // TODO
+            return findings;
         }
+
         // check for ROBOT vulnerability
-        else if (
+        if (
             'VULNERABLE_WEAK_ORACLE' == robot.robot_result_enum ||
             'VULNERABLE_STRONG_ORACLE' == robot.robot_result_enum
         ) {
@@ -829,28 +835,28 @@ class FindingBuilder {
         let findings = [];
 
         if (protocol == null) {
-            // TODO
-        } else {
-            // check if this protocol is supported
-            if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
-                let f = Object.assign({}, supportedFinding);
-                findings.push(this.buildFinding(f));
-            }
+            return findings;
+        }
 
-            // check for errors
-            if (protocol.errored_cipher_list != null) {
-                for (const errored_cipher of protocol.errored_cipher_list) {
-                    let f = Object.assign(
-                        {
-                            attributes: {
-                                cipher: errored_cipher.name,
-                                error: errored_cipher.error_message,
-                            },
+        // check if this protocol is supported
+        if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
+            let f = Object.assign({}, supportedFinding);
+            findings.push(this.buildFinding(f));
+        }
+
+        // check for errors
+        if (protocol.errored_cipher_list != null) {
+            for (const errored_cipher of protocol.errored_cipher_list) {
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            cipher: errored_cipher.name,
+                            error: errored_cipher.error_message,
                         },
-                        errorFinding
-                    );
-                    findings.push(this.buildFinding(f));
-                }
+                    },
+                    errorFinding
+                );
+                findings.push(this.buildFinding(f));
             }
         }
 
