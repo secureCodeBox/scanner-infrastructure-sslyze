@@ -8,18 +8,6 @@ Object {
   ],
   "result": Array [
     Object {
-      "attributes": undefined,
-      "category": "Certificate info",
-      "description": "Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "Certificate has Must-Staple",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
       "attributes": Object {
         "scts_count": 2,
       },
@@ -36,18 +24,6 @@ Object {
     Object {
       "attributes": undefined,
       "category": "Certificate info",
-      "description": "The server did not include the anchor/root certificate in the chain.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "No anchor/root certificate sent",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
-      "attributes": undefined,
-      "category": "Certificate info",
       "description": "Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.",
       "hint": null,
       "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
@@ -55,7 +31,7 @@ Object {
       "name": "SHA1 in certificate chain",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "HIGH",
     },
     Object {
       "attributes": undefined,
@@ -67,7 +43,7 @@ Object {
       "name": "Chain order invalid",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -105,7 +81,7 @@ Object {
       "name": "Certificate chain validation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "MEDIUM",
     },
     Object {
       "attributes": Object {
@@ -119,7 +95,7 @@ Object {
       "name": "Certificate will be distrusted",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -145,7 +121,7 @@ Object {
       "name": "No SCSV fallback support",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -231,7 +207,7 @@ Object {
       "name": "Session resumption failed",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -270,7 +246,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -285,7 +261,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -312,7 +288,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -327,7 +303,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -354,7 +330,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -369,7 +345,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -396,7 +372,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -411,7 +387,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -438,7 +414,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -453,7 +429,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -480,7 +456,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -495,19 +471,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
-      "attributes": undefined,
-      "category": "Certificate info",
-      "description": "Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "Certificate has Must-Staple",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -526,18 +490,6 @@ Object {
     Object {
       "attributes": undefined,
       "category": "Certificate info",
-      "description": "The server did not include the anchor/root certificate in the chain.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "No anchor/root certificate sent",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
-      "attributes": undefined,
-      "category": "Certificate info",
       "description": "Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.",
       "hint": null,
       "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
@@ -545,7 +497,7 @@ Object {
       "name": "SHA1 in certificate chain",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "HIGH",
     },
     Object {
       "attributes": undefined,
@@ -557,7 +509,7 @@ Object {
       "name": "Chain order invalid",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -595,7 +547,7 @@ Object {
       "name": "Certificate chain validation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "MEDIUM",
     },
     Object {
       "attributes": Object {
@@ -609,7 +561,7 @@ Object {
       "name": "Certificate will be distrusted",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -635,7 +587,7 @@ Object {
       "name": "No SCSV fallback support",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -721,7 +673,7 @@ Object {
       "name": "Session resumption failed",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -760,7 +712,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -775,7 +727,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -802,7 +754,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -817,7 +769,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -844,7 +796,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -859,7 +811,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -886,7 +838,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -901,7 +853,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -928,7 +880,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -943,7 +895,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -970,7 +922,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -985,7 +937,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
   ],
 }
@@ -998,18 +950,6 @@ Object {
   ],
   "result": Array [
     Object {
-      "attributes": undefined,
-      "category": "Certificate info",
-      "description": "Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "Certificate has Must-Staple",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
       "attributes": Object {
         "scts_count": 2,
       },
@@ -1026,18 +966,6 @@ Object {
     Object {
       "attributes": undefined,
       "category": "Certificate info",
-      "description": "The server did not include the anchor/root certificate in the chain.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "No anchor/root certificate sent",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
-      "attributes": undefined,
-      "category": "Certificate info",
       "description": "Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.",
       "hint": null,
       "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
@@ -1045,7 +973,7 @@ Object {
       "name": "SHA1 in certificate chain",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "HIGH",
     },
     Object {
       "attributes": undefined,
@@ -1057,7 +985,7 @@ Object {
       "name": "Chain order invalid",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1095,7 +1023,7 @@ Object {
       "name": "Certificate chain validation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "MEDIUM",
     },
     Object {
       "attributes": Object {
@@ -1109,7 +1037,7 @@ Object {
       "name": "Certificate will be distrusted",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1135,7 +1063,7 @@ Object {
       "name": "No SCSV fallback support",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1221,7 +1149,7 @@ Object {
       "name": "Session resumption failed",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1260,7 +1188,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1275,7 +1203,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1302,7 +1230,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1317,7 +1245,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1344,7 +1272,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1359,7 +1287,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1386,7 +1314,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1401,7 +1329,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1428,7 +1356,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1443,7 +1371,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1470,7 +1398,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1485,7 +1413,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
   ],
 }
@@ -1500,18 +1428,6 @@ Object {
   ],
   "result": Array [
     Object {
-      "attributes": undefined,
-      "category": "Certificate info",
-      "description": "Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "Certificate has Must-Staple",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
       "attributes": Object {
         "scts_count": 2,
       },
@@ -1528,18 +1444,6 @@ Object {
     Object {
       "attributes": undefined,
       "category": "Certificate info",
-      "description": "The server did not include the anchor/root certificate in the chain.",
-      "hint": null,
-      "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
-      "location": "https://www.yahoo.com:443",
-      "name": "No anchor/root certificate sent",
-      "osi_layer": "PRESENTATION",
-      "reference": null,
-      "severity": "INFORMATIONAL",
-    },
-    Object {
-      "attributes": undefined,
-      "category": "Certificate info",
       "description": "Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.",
       "hint": null,
       "id": "49bf7fd3-8512-4d73-a28f-608e493cd726",
@@ -1547,7 +1451,7 @@ Object {
       "name": "SHA1 in certificate chain",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "HIGH",
     },
     Object {
       "attributes": undefined,
@@ -1559,7 +1463,7 @@ Object {
       "name": "Chain order invalid",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1597,7 +1501,7 @@ Object {
       "name": "Certificate chain validation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "MEDIUM",
     },
     Object {
       "attributes": Object {
@@ -1611,7 +1515,7 @@ Object {
       "name": "Certificate will be distrusted",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1637,7 +1541,7 @@ Object {
       "name": "No SCSV fallback support",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1723,7 +1627,7 @@ Object {
       "name": "Session resumption failed",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1762,7 +1666,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1777,7 +1681,7 @@ Object {
       "name": "SSLv2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1804,7 +1708,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1819,7 +1723,7 @@ Object {
       "name": "SSLv3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1846,7 +1750,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1861,7 +1765,7 @@ Object {
       "name": "TLSv1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1888,7 +1792,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1903,7 +1807,7 @@ Object {
       "name": "TLSv1.1 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1930,7 +1834,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1945,7 +1849,7 @@ Object {
       "name": "TLSv1.2 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": undefined,
@@ -1972,7 +1876,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1987,7 +1891,7 @@ Object {
       "name": "TLSv1.3 negotation error",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
   ],
 }
