@@ -79,9 +79,18 @@ const FindingPrototypes = Object.freeze({
         severity: Severity.HIGH,
         category: FindingCategory.CERT_INFO,
     },
-    CERTINFO_HAS_MUST_STAPLE_EXTENSION: {
-        name: 'Certificate has Must-Staple',
-        description: 'Leaf certificate supports OCSP Must-Staple extension as defined in RFC 6066.',
+    CERTINFO_CERTIFICATE_NOT_TRUSTED: {
+        name: 'Certificate is not trusted',
+        description:
+            'At least one chain certificate is not trusted using the supplied trust store %s. Validation result: %s',
+        osi_layer: OsiLayer.PRESENTATION,
+        severity: Severity.MEDIUM,
+        category: FindingCategory.CERT_INFO,
+    },
+    CERTINFO_MUST_STAPLE_UNSUPPORTED: {
+        name: 'Must-Staple unsupported',
+        description:
+            'Leaf certificate does not support OCSP Must-Staple extension as defined in RFC 6066.',
         osi_layer: OsiLayer.PRESENTATION,
         severity: Severity.INFORMATIONAL,
         category: FindingCategory.CERT_INFO,
@@ -94,11 +103,11 @@ const FindingPrototypes = Object.freeze({
         severity: Severity.INFORMATIONAL,
         category: FindingCategory.CERT_INFO,
     },
-    CERTINFO_NO_ANCHOR_IN_CERTIFICATE_CHAIN: {
-        name: 'No anchor/root certificate sent',
-        description: 'The server did not include the anchor/root certificate in the chain.',
+    CERTINFO_ANCHOR_IN_CERTIFICATE_CHAIN: {
+        name: 'Anchor certificate sent',
+        description: 'Received certificate chain contains the anchor certificate.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.CERT_INFO,
     },
     CERTINFO_SHA1_IN_CERTIFICATE_CHAIN: {
@@ -106,14 +115,14 @@ const FindingPrototypes = Object.freeze({
         description:
             'Some of the leaf or intermediate certificates are signed using the SHA-1 algorithm.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.HIGH,
         category: FindingCategory.CERT_INFO,
     },
     CERTINFO_CHAIN_ORDER_INVALID: {
         name: 'Chain order invalid',
         description: 'The chain order sent by the server is invalid.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.CERT_INFO,
     },
     CERTINFO_NOT_EV: {
@@ -136,7 +145,7 @@ const FindingPrototypes = Object.freeze({
         description:
             'The server sent an OCSP response which is not trusted using the Mozilla trust store.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.MEDIUM,
         category: FindingCategory.CERT_INFO,
     },
     CERTINFO_HAS_PATH_VALIDATION_ERROR: {
@@ -144,7 +153,7 @@ const FindingPrototypes = Object.freeze({
         description:
             "An error occurred while attempting to validate the server's certificate chain: %s", // eslint-disable-line
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.MEDIUM,
         category: FindingCategory.CERT_INFO,
     },
     CERTINFO_WILL_BE_DISTRUSTED: {
@@ -152,7 +161,7 @@ const FindingPrototypes = Object.freeze({
         description:
             'The certificate was issued by one of the Symantec CAs and will be distrusted in Chrome and Firefox in %s.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.CERT_INFO,
     },
     // Compression findings
@@ -169,7 +178,7 @@ const FindingPrototypes = Object.freeze({
         description:
             'The server does not support the SCSV cipher suite which would prevent downgrade attacks if it was supported.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.FALLBACK,
     },
     // Heartbleed findings
@@ -207,8 +216,8 @@ const FindingPrototypes = Object.freeze({
     RESUM_ERROR: {
         name: 'Session resumption error',
         description: 'Session resumption information could not be retrieved due to error: %s',
-        osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        osi_layer: OsiLayer.NOT_APPLICABLE,
+        severity: Severity.HIGH,
         category: FindingCategory.RESUM,
     },
     RESUM_TICKET_RESUMPTION_UNSUPPORTED: {
@@ -236,7 +245,7 @@ const FindingPrototypes = Object.freeze({
         name: 'Session resumption failed',
         description: 'At least one session resumption failed.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.RESUM,
     },
     // ROBOT findings
@@ -267,7 +276,7 @@ const FindingPrototypes = Object.freeze({
         name: 'SSLv2 negotation error',
         description: 'At least one error occurred during negotiation using the SSLv2 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.SSLV2,
     },
     // SSLv3 findings
@@ -282,7 +291,7 @@ const FindingPrototypes = Object.freeze({
         name: 'SSLv3 negotation error',
         description: 'At least one error occurred during negotiation using the SSLv3 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.SSLV3,
     },
     // TLSv1 findings
@@ -297,7 +306,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1 negotation error',
         description: 'At least one error occurred during negotiation using the TLSv1 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1,
     },
     // TLSv1.1 findings
@@ -312,7 +321,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1.1 negotation error',
         description: 'At least one error occurred during negotiation using the TLSv1.1 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1_1,
     },
     // TLSv1.2 findings
@@ -327,7 +336,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1.2 negotation error',
         description: 'At least one error occurred during negotiation using the TLSv1.2 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1_2,
     },
     // TLSv1.3 findings
@@ -342,7 +351,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1.3 negotation error',
         description: 'At least one error occurred during negotiation using the TLSv1.3 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1_3,
     },
 });
@@ -388,8 +397,10 @@ class FindingBuilder {
         let findings = [];
 
         if (certinfo == null) {
-            // TODO
-        } else if (certinfo.error_message != null) {
+            return findings;
+        }
+
+        if (certinfo.error_message != null) {
             // add error finding
             let f = Object.assign(
                 {
@@ -406,9 +417,38 @@ class FindingBuilder {
         } else {
             // add ordinary findings
 
+            // check for untrusted certificates
+            if (certinfo.path_validation_result_list != null) {
+                for (const path_validation_result of certinfo.path_validation_result_list) {
+                    if (path_validation_result.is_certificate_trusted) {
+                        continue;
+                    }
+
+                    let f = Object.assign(
+                        {
+                            attributes: {
+                                error: path_validation_result.verify_string,
+                                trust_store: `${path_validation_result.trust_store.name} (${
+                                    path_validation_result.trust_store.path
+                                })`,
+                            },
+                        },
+                        FindingPrototypes.CERTINFO_CERTIFICATE_NOT_TRUSTED
+                    );
+
+                    f.description = sprintf(
+                        f.description,
+                        path_validation_result.trust_store.name,
+                        path_validation_result.verify_string
+                    );
+
+                    findings.push(this.buildFinding(f));
+                }
+            }
+
             // check for Must-Staple extension
-            if (certinfo.certificate_has_must_staple_extension) {
-                let f = Object.assign({}, FindingPrototypes.CERTINFO_HAS_MUST_STAPLE_EXTENSION);
+            if (!certinfo.certificate_has_must_staple_extension) {
+                let f = Object.assign({}, FindingPrototypes.CERTINFO_MUST_STAPLE_UNSUPPORTED);
                 findings.push(this.buildFinding(f));
             }
 
@@ -432,11 +472,8 @@ class FindingBuilder {
             }
 
             // check for anchor in certificate chain
-            if (!certinfo.has_anchor_in_certificate_chain) {
-                let f = Object.assign(
-                    {},
-                    FindingPrototypes.CERTINFO_NO_ANCHOR_IN_CERTIFICATE_CHAIN
-                );
+            if (certinfo.has_anchor_in_certificate_chain) {
+                let f = Object.assign({}, FindingPrototypes.CERTINFO_ANCHOR_IN_CERTIFICATE_CHAIN);
                 findings.push(this.buildFinding(f));
             }
 
@@ -518,10 +555,11 @@ class FindingBuilder {
         let findings = [];
 
         if (compression == null) {
-            // TODO
+            return findings;
         }
+
         // check for exposed compression
-        else if (compression.compression_name != null) {
+        if (compression.compression_name != null) {
             let f = Object.assign(
                 {
                     attributes: {
@@ -546,10 +584,11 @@ class FindingBuilder {
         let findings = [];
 
         if (fallback == null) {
-            // TODO
+            return findings;
         }
+
         // check for SCSV fallback support
-        else if (!fallback.supports_fallback_scsv) {
+        if (!fallback.supports_fallback_scsv) {
             let f = Object.assign({}, FindingPrototypes.FALLBACK_NO_SCSV_SUPPORT);
             findings.push(this.buildFinding(f));
         }
@@ -564,10 +603,11 @@ class FindingBuilder {
         let findings = [];
 
         if (heartbleed == null) {
-            // TODO
+            return findings;
         }
+
         // check for Heartbleed vulnerability
-        else if (heartbleed.is_vulnerable_to_heartbleed) {
+        if (heartbleed.is_vulnerable_to_heartbleed) {
             let f = Object.assign({}, FindingPrototypes.HEARTBLEED_VULNERABLE);
             findings.push(this.buildFinding(f));
         }
@@ -582,8 +622,9 @@ class FindingBuilder {
         let findings = [];
 
         if (ccs == null) {
-            // TODO
+            return findings;
         }
+
         // check for CCS vulnerability
         else if (ccs.is_vulnerable_to_ccs_injection) {
             let f = Object.assign({}, FindingPrototypes.CCS_VULNERABLE);
@@ -600,19 +641,19 @@ class FindingBuilder {
         let findings = [];
 
         if (reneg == null) {
-            // TODO
-        } else {
-            // check if server accepts client renegotiation
-            if (reneg.accepts_client_renegotiation) {
-                let f = Object.assign({}, FindingPrototypes.RENEG_ACCEPTED);
-                findings.push(this.buildFinding(f));
-            }
+            return findings;
+        }
 
-            // check if server supports secure renegotiation
-            if (!reneg.supports_secure_renegotiation) {
-                let f = Object.assign({}, FindingPrototypes.RENEG_NO_SECURE_SUPPORT);
-                findings.push(this.buildFinding(f));
-            }
+        // check if server accepts client renegotiation
+        if (reneg.accepts_client_renegotiation) {
+            let f = Object.assign({}, FindingPrototypes.RENEG_ACCEPTED);
+            findings.push(this.buildFinding(f));
+        }
+
+        // check if server supports secure renegotiation
+        if (!reneg.supports_secure_renegotiation) {
+            let f = Object.assign({}, FindingPrototypes.RENEG_NO_SECURE_SUPPORT);
+            findings.push(this.buildFinding(f));
         }
 
         return findings;
@@ -625,11 +666,10 @@ class FindingBuilder {
         let findings = [];
 
         if (resum == null) {
-            // TODO
-        } else if (
-            resum.ticket_resumption_exception != null ||
-            resum.ticket_resumption_error != null
-        ) {
+            return findings;
+        }
+
+        if (resum.ticket_resumption_exception != null || resum.ticket_resumption_error != null) {
             // add error findings
 
             if (resum.ticket_resumption_exception != null) {
@@ -704,10 +744,11 @@ class FindingBuilder {
         let findings = [];
 
         if (robot == null) {
-            // TODO
+            return findings;
         }
+
         // check for ROBOT vulnerability
-        else if (
+        if (
             'VULNERABLE_WEAK_ORACLE' == robot.robot_result_enum ||
             'VULNERABLE_STRONG_ORACLE' == robot.robot_result_enum
         ) {
@@ -794,28 +835,28 @@ class FindingBuilder {
         let findings = [];
 
         if (protocol == null) {
-            // TODO
-        } else {
-            // check if this protocol is supported
-            if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
-                let f = Object.assign({}, supportedFinding);
-                findings.push(this.buildFinding(f));
-            }
+            return findings;
+        }
 
-            // check for errors
-            if (protocol.errored_cipher_list != null) {
-                for (const errored_cipher of protocol.errored_cipher_list) {
-                    let f = Object.assign(
-                        {
-                            attributes: {
-                                cipher: errored_cipher.name,
-                                error: errored_cipher.error_message,
-                            },
+        // check if this protocol is supported
+        if (protocol.accepted_cipher_list != null && protocol.accepted_cipher_list.length > 0) {
+            let f = Object.assign({}, supportedFinding);
+            findings.push(this.buildFinding(f));
+        }
+
+        // check for errors
+        if (protocol.errored_cipher_list != null) {
+            for (const errored_cipher of protocol.errored_cipher_list) {
+                let f = Object.assign(
+                    {
+                        attributes: {
+                            cipher: errored_cipher.name,
+                            error: errored_cipher.error_message,
                         },
-                        errorFinding
-                    );
-                    findings.push(this.buildFinding(f));
-                }
+                    },
+                    errorFinding
+                );
+                findings.push(this.buildFinding(f));
             }
         }
 

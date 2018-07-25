@@ -1,9 +1,13 @@
-![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-sslyze.svg?token=TODO&branch=develop)
+![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-sslyze.svg?token=Hpx3VekB3dxuZX1bYFME&branch=develop)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Known Vulnerabilities](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-sslyze/badge.svg)](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-sslyze)
 
 # About
 This repository contains a self contained µService utilizing the SSLyze SSL scanner for the secureCodeBox Application.
+
+Further Documentation:
+* [Project Description][scb-project]
+* [Developer Guide][scb-developer-guide]
+* [User Guide][scb-user-guide]
 
 ## Configuration Options
 To configure this service specify the following environment variables:
@@ -30,3 +34,9 @@ To run the testsuite run:
 
 ### Build with docker
 To build the docker container run: `docker build -t CONTAINER_NAME:LABEL .`
+
+
+[scb-project]:              https://github.com/secureCodeBox/secureCodeBox
+[scb-developer-guide]:      https://github.com/secureCodeBox/secureCodeBox/blob/develop/docs/developer-guide/README.md
+[scb-developer-guidelines]: https://github.com/secureCodeBox/secureCodeBox/blob/develop/docs/developer-guide/README.md#guidelines
+[scb-user-guide]:           https://github.com/secureCodeBox/secureCodeBox/tree/develop/docs/user-guide

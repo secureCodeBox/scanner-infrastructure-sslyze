@@ -7,14 +7,12 @@ NodeJS wrapper for SSLyze. Based on node-nmap.
 
 ## Installation
 `npm install`
-TODO: `npm install node-sslyze`
 
 ## Running tests
 `npm test`
 
 ## Scan Types
 * `RegularScan` - Runs a regular SSLyze scan
-TODO: more to come
  
 ## Scan instance variables, methods, and events
 * `scanResults` : Array of host objects - contains the results of the scan.
