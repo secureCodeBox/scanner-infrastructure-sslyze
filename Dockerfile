@@ -25,7 +25,7 @@ RUN addgroup --system sslyze_group && adduser --system --ingroup sslyze_group ss
 
 USER sslyze_user
 
-EXPOSE 3000
+EXPOSE 8080
 
 ARG COMMIT_ID=unkown
 ARG REPOSITORY_URL=unkown
