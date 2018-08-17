@@ -25,6 +25,7 @@ jobs:
         - docker tag $REPO:$TAG $REPO:$TRAVIS_BUILD_NUMBER;
         - echo -en "travis_fold:end:Docker_Build\r"
         - docker images
-        - docker run --rm --name sslyze $REPO:$TAG
+        - docker run -d --name sslyze $REPO:$TAG
         - docker ps | grep -q sslyze
+        - docker rm -f sslyze
         - docker push $REPO
