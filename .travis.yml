@@ -11,7 +11,7 @@ jobs:
       language: node_js
       node_js:
         - "8"
-    - stage: build docker image
+    - stage: build test deploy docker image
       services:
         - docker
       script:
@@ -24,15 +24,10 @@ jobs:
         - docker tag $REPO:$TAG $REPO:latest;
         - docker tag $REPO:$TAG $REPO:$TRAVIS_BUILD_NUMBER;
         - echo -en "travis_fold:end:Docker_Build\r"
-    - stage: test docker image
-      services:
-        - docker
-      script:
-          - docker run --rm --name sslyze $REPO:$TAG
-          - docker ps | grep -q sslyze
-    - stage: push docker image
-      services:
-        - docker
-      script:
+      after_script:
         - docker images
+      before_deploy:
+        - docker run --rm --name sslyze $REPO:$TAG
+        - docker ps | grep -q sslyze
+      deploy:
         - docker push $REPO
