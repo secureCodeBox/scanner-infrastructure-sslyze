@@ -7,7 +7,11 @@
         "test": "./node_modules/.bin/mocha --reporter spec",
         "app": "node app.js"
     },
-    "keywords": ["sslyze", "ssl", "scan"],
+    "keywords": [
+        "sslyze",
+        "ssl",
+        "scan"
+    ],
     "author": "Victor-Philipp Negoescu, iteratec GmbH",
     "license": "MIT",
     "licenses": [
@@ -16,8 +20,7 @@
             "url": "https://github.com/brentertz/scapegoat/blob/master/LICENSE-MIT"
         }
     ],
-    "homepage":
-        "https://github.com/secureCodeBox/scanner-infrastructure-sslyze/tree/develop/lib/node-sslyze",
+    "homepage": "https://github.com/secureCodeBox/scanner-infrastructure-sslyze/tree/develop/lib/node-sslyze",
     "dependencies": {
         "sprintf-js": "^1.1.1"
     },
