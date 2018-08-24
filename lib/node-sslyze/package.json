@@ -1,32 +1,29 @@
 {
-  "name": "node-sslyze",
-  "version": "0.0.1",
-  "description": "Interfaces with locally installed SSLyze",
-  "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
-    "app": "node app.js"
-  },
-  "keywords": [
-    "sslyze",
-    "ssl",
-    "scan"
-  ],
-  "author": "Victor-Philipp Negoescu, iteratec GmbH",
-  "license": "MIT",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/brentertz/scapegoat/blob/master/LICENSE-MIT"
+    "name": "node-sslyze",
+    "version": "0.0.1",
+    "description": "Interfaces with locally installed SSLyze",
+    "main": "index.js",
+    "scripts": {
+        "test": "./node_modules/.bin/mocha --reporter spec",
+        "app": "node app.js"
+    },
+    "keywords": ["sslyze", "ssl", "scan"],
+    "author": "Victor-Philipp Negoescu, iteratec GmbH",
+    "license": "MIT",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/brentertz/scapegoat/blob/master/LICENSE-MIT"
+        }
+    ],
+    "homepage":
+        "https://github.com/secureCodeBox/scanner-infrastructure-sslyze/tree/develop/lib/node-sslyze",
+    "dependencies": {
+        "sprintf-js": "^1.1.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "mocha": "^5.2.0",
+        "use-strict": "^1.0.1"
     }
-  ],
-  "homepage": "https://github.com/secureCodeBox/scanner-infrastructure-sslyze/tree/develop/lib/node-sslyze",
-  "dependencies": {
-    "sprintf-js": "^1.1.1"
-  },
-  "devDependencies": {
-    "chai": "^3.4.0",
-    "mocha": "^2.3.3",
-    "use-strict": "^1.0.1"
-  }
 }
