@@ -1,7 +1,7 @@
 ![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-sslyze.svg?token=Hpx3VekB3dxuZX1bYFME&branch=develop)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Known Vulnerabilities](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-sslyze/badge.svg)](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-sslyze)
-
+[![GitHub release](https://img.shields.io/github/release/secureCodeBox/scanner-infrastructure-sslyze.svg)](https://github.com/secureCodeBox/scanner-infrastructure-sslyze/releases/latest)
 
 # About
 This repository contains a self contained µService utilizing the SSLyze SSL scanner for the secureCodeBox Application.
