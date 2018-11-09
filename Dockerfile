@@ -19,7 +19,7 @@ RUN npm install --production
 
 COPY . /src
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD node healthcheck.js || exit 1
+HEALTHCHECK --interval=5s --timeout=5s --start-period=30s --retries=3 CMD node healthcheck.js || exit 1
 
 RUN ls -l
 
