@@ -19,6 +19,8 @@ RUN npm install --production
 
 COPY . /src
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 CMD node healthcheck.js || exit 1
+
 RUN ls -l
 
 RUN addgroup --system sslyze_group && adduser --system --ingroup sslyze_group sslyze_user 
