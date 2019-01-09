@@ -61,7 +61,7 @@ const FindingCategory = Object.freeze({
     ROBOT: 'Robot',
     SSLV2: 'SSLv2',
     SSLV3: 'SSLv3',
-    TLSV1: 'TLSv1',
+    V1: 'TLSv1',
     TLSV1_1: 'TLSv1.1',
     TLSV1_2: 'TLSv1.2',
     TLSV1_3: 'TLSv1.3',
@@ -299,7 +299,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1 supported',
         description: 'The server supports at least one cipher suite using the TLSv1 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1,
     },
     TLSV1_ERROR: {
