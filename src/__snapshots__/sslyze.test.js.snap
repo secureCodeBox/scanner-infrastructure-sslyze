@@ -315,7 +315,7 @@ Object {
       "name": "TLSv1 supported",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -781,7 +781,7 @@ Object {
       "name": "TLSv1 supported",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1257,7 +1257,7 @@ Object {
       "name": "TLSv1 supported",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
@@ -1735,7 +1735,7 @@ Object {
       "name": "TLSv1 supported",
       "osi_layer": "PRESENTATION",
       "reference": null,
-      "severity": "INFORMATIONAL",
+      "severity": "LOW",
     },
     Object {
       "attributes": Object {
