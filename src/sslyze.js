@@ -299,7 +299,7 @@ const FindingPrototypes = Object.freeze({
         name: 'TLSv1 supported',
         description: 'The server supports at least one cipher suite using the TLSv1 protocol.',
         osi_layer: OsiLayer.PRESENTATION,
-        severity: Severity.INFORMATIONAL,
+        severity: Severity.LOW,
         category: FindingCategory.TLSV1,
     },
     TLSV1_ERROR: {

@@ -778,7 +778,7 @@ describe('sslyze', () => {
                     'The server supports at least one cipher suite using the TLSv1 protocol.',
                 category: 'TLSv1',
                 osi_layer: 'PRESENTATION',
-                severity: 'INFORMATIONAL',
+                severity: 'LOW',
                 reference: null,
                 hint: null,
                 location: 'https://www.yahoo.com:443',
