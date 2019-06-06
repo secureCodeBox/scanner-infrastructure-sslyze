@@ -17,7 +17,7 @@
         "url": "git@github.com:secureCodeBox/scanner-infrastructure-sslyze.git"
     },
     "dependencies": {
-        "@securecodebox/scanner-scaffolding": "^2.2.0",
+        "@securecodebox/scanner-scaffolding": "^2.2.4",
         "lodash": "^4.17.11",
         "node-sslyze": "file:lib/node-sslyze",
         "sprintf-js": "^1.1.2",
@@ -25,8 +25,8 @@
     },
     "devDependencies": {
         "eslint": "^5.16.0",
-        "eslint-plugin-prettier": "^3.0.1",
-        "jest": "^24.7.1",
-        "prettier": "^1.16.4"
+        "eslint-plugin-prettier": "^3.1.0",
+        "jest": "^24.8.0",
+        "prettier": "^1.17.1"
     }
 }
