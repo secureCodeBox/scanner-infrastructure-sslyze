@@ -929,6 +929,8 @@ async function worker(targets) {
 
             results.push({ findings: result, raw: raw });
         } catch (err) {
+            console.error('Scan errored:');
+            console.error(err);
             throw new Error('Failed to execute SSLyze scan.');
         }
     }
