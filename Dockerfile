@@ -6,22 +6,19 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
+RUN pip install sslyze && \
+    python -m sslyze --update_trust_store
+
 COPY package.json package-lock.json /src/
-COPY lib/ src/lib/
 
 WORKDIR /src
 
-RUN ls -l
-
-RUN pip install sslyze && \
-    python -m sslyze --update_trust_store
 RUN npm install --production
 
+COPY lib/ src/lib/
 COPY . /src
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 CMD node healthcheck.js || exit 1
-
-RUN ls -l
 
 RUN addgroup --system sslyze_group && adduser --system --ingroup sslyze_group sslyze_user 
 
