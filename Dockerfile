@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
-RUN pip install sslyze==2.1.2 && \
+RUN pip install sslyze==2.1.3 && \
     python -m sslyze --update_trust_store
 
 COPY package.json package-lock.json /src/
