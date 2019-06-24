@@ -26,14 +26,16 @@ const scanner = new ScannerScaffolding(worker, {
     topic: 'sslyze_scan',
     async testScannerFunctionality() {
         try {
-            await testRun();
+            const { res } = await testRun();
+            const version = res.sslyze_version || 'unkown';
+
+            return {
+                version,
+                testRun: 'successful',
+            };
         } catch (error) {
             return { version: 'unkown', testRun: 'failed' };
         }
-        return {
-            version: 'unkown',
-            testRun: 'successful',
-        };
     },
 });
 

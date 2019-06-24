@@ -159,7 +159,7 @@ const FindingPrototypes = Object.freeze({
     CERTINFO_WILL_BE_DISTRUSTED: {
         name: 'Certificate will be distrusted',
         description:
-            'The certificate was issued by one of the Symantec CAs and will be distrusted in Chrome and Firefox in %s.',
+            'The certificate was issued by one of the Symantec Legacy CAs and will be distrusted in Chrome and Firefox.',
         osi_layer: OsiLayer.PRESENTATION,
         severity: Severity.LOW,
         category: FindingCategory.CERT_INFO,
@@ -420,7 +420,7 @@ class FindingBuilder {
             // check for untrusted certificates
             if (certinfo.path_validation_result_list != null) {
                 for (const path_validation_result of certinfo.path_validation_result_list) {
-                    if (path_validation_result.is_certificate_trusted) {
+                    if (path_validation_result.verify_string === 'ok') {
                         continue;
                     }
 
@@ -447,50 +447,54 @@ class FindingBuilder {
             }
 
             // check for Must-Staple extension
-            if (!certinfo.certificate_has_must_staple_extension) {
+            if (!certinfo.leaf_certificate_has_must_staple_extension) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_MUST_STAPLE_UNSUPPORTED);
                 findings.push(this.buildFinding(f));
             }
 
             // check for SCTS count
             if (
-                certinfo.certificate_included_scts_count != null &&
-                certinfo.certificate_included_scts_count != 0
+                certinfo.leaf_certificate_signed_certificate_timestamps_count != null &&
+                certinfo.leaf_certificate_signed_certificate_timestamps_count != 0
             ) {
                 let f = Object.assign(
                     {
                         attributes: {
-                            scts_count: certinfo.certificate_included_scts_count,
+                            scts_count:
+                                certinfo.leaf_certificate_signed_certificate_timestamps_count,
                         },
                     },
                     FindingPrototypes.CERTINFO_INCLUDES_SCTS_COUNT
                 );
 
-                f.description = sprintf(f.description, certinfo.certificate_included_scts_count);
+                f.description = sprintf(
+                    f.description,
+                    certinfo.leaf_certificate_signed_certificate_timestamps_count
+                );
 
                 findings.push(this.buildFinding(f));
             }
 
             // check for anchor in certificate chain
-            if (certinfo.has_anchor_in_certificate_chain) {
+            if (certinfo.received_chain_contains_anchor_certificate) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_ANCHOR_IN_CERTIFICATE_CHAIN);
                 findings.push(this.buildFinding(f));
             }
 
             // check for SHA1 in certificate chain
-            if (certinfo.has_sha1_in_certificate_chain) {
+            if (certinfo.verified_chain_has_sha1_signature) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_SHA1_IN_CERTIFICATE_CHAIN);
                 findings.push(this.buildFinding(f));
             }
 
             // check for valid certificate chain order
-            if (!certinfo.is_certificate_chain_order_valid) {
+            if (!certinfo.received_chain_has_valid_order) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_CHAIN_ORDER_INVALID);
                 findings.push(this.buildFinding(f));
             }
 
             // check if certificate is verified as 'extended validation'
-            if (!certinfo.is_leaf_certificate_ev) {
+            if (!certinfo.leaf_certificate_is_ev) {
                 let f = Object.assign({}, FindingPrototypes.CERTINFO_NOT_EV);
                 findings.push(this.buildFinding(f));
             }
@@ -501,7 +505,7 @@ class FindingBuilder {
                 findings.push(this.buildFinding(f));
             } else {
                 // check if OCSP response is trusted
-                if (!certinfo.is_ocsp_response_trusted) {
+                if (!certinfo.ocsp_response_is_trusted) {
                     let f = Object.assign(
                         {},
                         FindingPrototypes.CERTINFO_OCSP_RESPONSE_IS_NOT_TRUSTED
@@ -529,15 +533,8 @@ class FindingBuilder {
             }
 
             // check if certificate will be distrusted
-            if (certinfo.symantec_distrust_timeline != null) {
-                let f = Object.assign(
-                    {
-                        attributes: {
-                            distrust_timeline: certinfo.symantec_distrust_timeline,
-                        },
-                    },
-                    FindingPrototypes.CERTINFO_WILL_BE_DISTRUSTED
-                );
+            if (certinfo.verified_chain_has_legacy_symantec_anchor == true) {
+                let f = Object.assign({}, FindingPrototypes.CERTINFO_WILL_BE_DISTRUSTED);
 
                 f.description = sprintf(f.description, certinfo.symantec_distrust_timeline);
 
@@ -929,6 +926,8 @@ async function worker(targets) {
 
             results.push({ findings: result, raw: raw });
         } catch (err) {
+            console.error('Scan errored:');
+            console.error(err);
             throw new Error('Failed to execute SSLyze scan.');
         }
     }
