@@ -1,32 +1,36 @@
 {
-    "name": "@securecodebox/scanner-infrastructure-sslyze",
-    "version": "0.0.1",
-    "description": "SecureCodeBox SSLyze Scanner",
-    "author": "iteratec GmbH",
-    "license": "Apache-2.0",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "lint": "eslint index.js src/",
-        "pretest": "npm run lint",
-        "test": "jest --silent --coverage src/*.js",
-        "build-dev": "docker build -t dev_sslyze ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:secureCodeBox/scanner-infrastructure-sslyze.git"
-    },
-    "dependencies": {
-        "@securecodebox/scanner-scaffolding": "^2.2.5",
-        "lodash": "^4.17.11",
-        "node-sslyze": "file:lib/node-sslyze",
-        "sprintf-js": "^1.1.2",
-        "uuid": "^3.3.2"
-    },
-    "devDependencies": {
-        "eslint": "^5.16.0",
-        "eslint-plugin-prettier": "^3.1.0",
-        "jest": "^24.8.0",
-        "prettier": "^1.17.1"
-    }
+  "name": "@securecodebox/scanner-infrastructure-sslyze",
+  "version": "0.0.1",
+  "description": "SecureCodeBox SSLyze Scanner",
+  "author": "iteratec GmbH",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint index.js src/",
+    "pretest": "npm run lint",
+    "test": "jest --silent --coverage src/*.js",
+    "build-dev": "docker build -t dev_sslyze .",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:secureCodeBox/scanner-infrastructure-sslyze.git"
+  },
+  "dependencies": {
+    "@securecodebox/scanner-scaffolding": "^2.2.5",
+    "lodash": "^4.17.11",
+    "node-sslyze": "file:lib/node-sslyze",
+    "sprintf-js": "^1.1.2",
+    "uuid": "^3.3.2",
+    "snyk": "^1.192.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.17.1"
+  },
+  "snyk": true
 }
