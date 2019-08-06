@@ -1,3 +1,14 @@
+FROM node:8-alpine as node-build
+
+COPY package.json package-lock.json /src/
+
+WORKDIR /src
+
+RUN npm install --production
+
+COPY lib/ src/lib/
+COPY . /src
+
 FROM python:3.6
 
 RUN apt-get update && \
@@ -9,14 +20,9 @@ RUN apt-get update && \
 RUN pip install sslyze==2.1.3 && \
     python -m sslyze --update_trust_store
 
-COPY package.json package-lock.json /src/
+COPY --from=node-build /src /src
 
 WORKDIR /src
-
-RUN npm install --production
-
-COPY lib/ src/lib/
-COPY . /src
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 CMD node healthcheck.js || exit 1
 
