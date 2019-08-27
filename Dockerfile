@@ -54,4 +54,4 @@ LABEL org.opencontainers.image.title="secureCodeBox scanner-infrastructure-sslyz
     org.opencontainers.image.revision=$COMMIT_ID \
     org.opencontainers.image.created=$BUILD_DATE
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "node", "index.js" ]
