@@ -13,6 +13,8 @@ category: "scanner"
 # About
 This repository contains a self contained µService utilizing the SSLyze SSL scanner for the secureCodeBox Application.
 
+<!-- end -->
+
 Further Documentation:
 * [Project Description][scb-project]
 * [Developer Guide][scb-developer-guide]
