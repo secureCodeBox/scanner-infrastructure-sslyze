@@ -1,5 +1,7 @@
 ---
-title: SSLyze
+title: "SSLyze"
+path: "scanner/SSLyze"
+category: "scanner"
 
 ---
 
