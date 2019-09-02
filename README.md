@@ -1,5 +1,6 @@
 ---
 title: SSLyze
+
 ---
 
 [![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-sslyze.svg?branch=develop)](https://travis-ci.com/secureCodeBox/scanner-infrastructure-sslyze)
