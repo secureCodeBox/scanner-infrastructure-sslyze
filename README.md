@@ -3,6 +3,7 @@ title: "SSLyze"
 path: "scanner/SSLyze"
 category: "scanner"
 usecase: "SSL/TLS Configuration Scanner"
+release: "https://img.shields.io/github/release/secureCodeBox/scanner-infrastructure-sslyze.svg"
 
 ---
 
