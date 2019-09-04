@@ -2,6 +2,7 @@
 title: "SSLyze"
 path: "scanner/SSLyze"
 category: "scanner"
+usecase: "SSL/TLS configuration"
 
 ---
 
