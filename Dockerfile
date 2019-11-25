@@ -9,15 +9,16 @@ RUN npm install --production
 COPY lib/ src/lib/
 COPY . /src
 
-FROM python:3.7
+FROM python:3.8
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
-RUN pip install sslyze==2.1.4 && \
+RUN pip install --upgrade setuptools && \
+    pip install --upgrade sslyze && \
     python -m sslyze --update_trust_store
 
 COPY --from=node-build /src /src
