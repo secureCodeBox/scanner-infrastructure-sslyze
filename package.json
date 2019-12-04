@@ -17,7 +17,7 @@
         "url": "git@github.com:secureCodeBox/scanner-infrastructure-sslyze.git"
     },
     "dependencies": {
-        "@securecodebox/scanner-scaffolding": "^2.2.6",
+        "@securecodebox/scanner-scaffolding": "^2.2.7",
         "lodash": "^4.17.15",
         "node-sslyze": "file:lib/node-sslyze",
         "sprintf-js": "^1.1.2",
