@@ -58,7 +58,7 @@ Example Output:
 
 ```json
 {
-    "findings": [
+  "findings": [
     {
       "id": "d50c9cad-2d64-4fd8-9ad9-cdfdd63bfec0",
       "name": "Must-Staple unsupported",
