@@ -27,7 +27,7 @@ To hand over supported parameters through api usage, you can set following attri
       "name": "targetName",
       "location": "http://your-target.com/",
       "attributes": {
-      "SSLYZE_PARAMETER": "[String parameter]" "//See oficcial SSLyze documentation"
+      "SSLYZE_PARAMETER": "[String parameter]"//See oficcial SSLyze documentation"
       }
     }
   }
@@ -44,8 +44,8 @@ Example configuration:
     "name": "sslyze",
     "context": "Example Test",
     "target": {
-      "name": "BodgeIT on OpenShift",
-      "location": "bodgeit-scb.cloudapps.iterashift.com",
+      "name": "BodgeIT",
+      "location": "bodgeit.example.com",
       "attributes": {
         "SSLYZE_PARAMETER": ""
         }
@@ -66,7 +66,7 @@ Example Output:
       "category": "Certificate info",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -79,7 +79,7 @@ Example Output:
       "attributes": {
         "scts_count": 2
       },
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -89,7 +89,7 @@ Example Output:
       "category": "Certificate info",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -99,7 +99,7 @@ Example Output:
       "category": "Certificate info",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -109,7 +109,7 @@ Example Output:
       "category": "Resumption",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -122,7 +122,7 @@ Example Output:
       "attributes": {
         "error": null
       },
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -132,7 +132,7 @@ Example Output:
       "category": "TLSv1",
       "osi_layer": "PRESENTATION",
       "severity": "LOW",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -142,7 +142,7 @@ Example Output:
       "category": "TLSv1.1",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     },
     {
@@ -152,7 +152,7 @@ Example Output:
       "category": "TLSv1.2",
       "osi_layer": "PRESENTATION",
       "severity": "INFORMATIONAL",
-      "location": "https://bodgeit-scb.cloudapps.iterashift.com:443",
+      "location": "https://bodgeit.example.com:443",
       "false_positive": false
     }
   ]
