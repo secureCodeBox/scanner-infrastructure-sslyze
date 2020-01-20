@@ -1,4 +1,4 @@
-FROM node:8-alpine as node-build
+FROM node:12-alpine as node-build
 
 COPY package.json package-lock.json /src/
 
@@ -9,11 +9,11 @@ RUN npm install --production
 COPY lib/ src/lib/
 COPY . /src
 
-FROM python:3.7
+FROM python:3.7-slim
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
