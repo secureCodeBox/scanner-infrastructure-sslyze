@@ -428,9 +428,7 @@ class FindingBuilder {
                         {
                             attributes: {
                                 error: path_validation_result.verify_string,
-                                trust_store: `${path_validation_result.trust_store.name} (${
-                                    path_validation_result.trust_store.path
-                                })`,
+                                trust_store: `${path_validation_result.trust_store.name} (${path_validation_result.trust_store.path})`,
                             },
                         },
                         FindingPrototypes.CERTINFO_CERTIFICATE_NOT_TRUSTED
