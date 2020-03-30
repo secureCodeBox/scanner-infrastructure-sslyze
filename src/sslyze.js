@@ -898,11 +898,9 @@ function transform(res) {
  */
 function joinResults(results) {
     const findings = _.flatMap(results, result => result.findings);
-    const rawFindings = _.map(results, result => result.raw);
 
     return {
-        result: findings,
-        raw: rawFindings,
+        result: findings
     };
 }
 
