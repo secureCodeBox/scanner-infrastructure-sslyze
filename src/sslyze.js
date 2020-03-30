@@ -922,7 +922,8 @@ async function worker(targets) {
             //console.log('res: ' + res);
             const result = transform(res);
 
-            results.push({ findings: result, raw: raw });
+            // TODO: Add raw once JSON output has changed to XML
+            results.push({ findings: result});
         } catch (err) {
             console.error('Scan errored:');
             console.error(err);
