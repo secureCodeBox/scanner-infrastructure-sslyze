@@ -320,10 +320,6 @@ Array [
 
 exports[`sslyze worker should run multiple scans when multiple targets are configured 1`] = `
 Object {
-  "raw": Array [
-    "some JSON",
-    "some JSON",
-  ],
   "result": Array [
     Object {
       "attributes": undefined,
@@ -547,9 +543,6 @@ Object {
 
 exports[`sslyze worker should take parameters 1`] = `
 Object {
-  "raw": Array [
-    "some JSON",
-  ],
   "result": Array [
     Object {
       "attributes": undefined,
@@ -667,9 +660,6 @@ exports[`sslyze worker should throw an error if a scan fails 1`] = `"Failed to e
 
 exports[`sslyze worker should work with a single target 1`] = `
 Object {
-  "raw": Array [
-    "some JSON",
-  ],
   "result": Array [
     Object {
       "attributes": undefined,

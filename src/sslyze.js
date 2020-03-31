@@ -900,7 +900,7 @@ function joinResults(results) {
     const findings = _.flatMap(results, result => result.findings);
 
     return {
-        result: findings
+        result: findings,
     };
 }
 
@@ -916,11 +916,11 @@ async function worker(targets) {
             const parameter = _.get(attributes, ['SSLYZE_PARAMETER'], '');
 
             console.log(`SCANNING location: ${location}, parameters:${parameter}`);
-            const { res, raw } = await sslscan.scanTarget(location, parameter);
+            const { res } = await sslscan.scanTarget(location, parameter);
             //console.log('res: ' + res);
             const result = transform(res);
 
-            results.push({ findings: result});
+            results.push({ findings: result });
         } catch (err) {
             console.error('Scan errored:');
             console.error(err);
