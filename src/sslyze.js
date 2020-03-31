@@ -56,7 +56,7 @@ const FindingCategory = Object.freeze({
     HEARTBLEED: 'Heratbleed TLS Vulnerability',
     ROBOT: 'ROBOT TLS Vulnerability',
     CCS: 'CCS TLS Vulnerability',
-    NOT_TRUSTED: 'TLS Cert Not Trusted',
+    CERT_INFO: 'TLS Cert Not Trusted',
 });
 
 function getAllSupportedTls(commandsResults) {
