@@ -1,15 +1,15 @@
 function parse(fileContent) {
     const serverScanResult = fileContent.server_scan_results[0];
-    
+
     const partialFindings = [
         generateInformationalServiceFinding(serverScanResult),
-        ...generateVulnarableTLSVersionFindings(serverScanResult)
+        ...generateVulnarableTLSVersionFindings(serverScanResult),
     ];
 
     const serverInfo = serverScanResult.server_info;
     const { ip_address, hostname, port } = serverInfo.server_location;
     const location = `${hostname || ip_address}:${port}`;
-    
+
     // Enhance partialFindings with common properties shared accross all sslyze findings
     const findings = partialFindings.map(partialFinding => {
         return {
@@ -21,10 +21,10 @@ function parse(fileContent) {
                 hostname,
                 ip_address,
                 port,
-                ...(partialFinding.attributes || {})
+                ...(partialFinding.attributes || {}),
             },
-        }
-    })
+        };
+    });
 
     return findings;
 }
@@ -80,16 +80,16 @@ function getAllSupportedTlsVersions(serverScanResult) {
 
 function generateInformationalServiceFinding(serverScanResult) {
     return {
-            name: 'TLS Service',
-            description: '',
-            category: 'TLS Service Info',
-            severity: 'INFORMATIONAL',
-            hint: null,
-            attributes: {
-                tls_versions: getAllSupportedTlsVersions(serverScanResult),
-                cipher_suites: getAllAcceptedCipherSuites(serverScanResult),
-            }
-        };
+        name: 'TLS Service',
+        description: '',
+        category: 'TLS Service Info',
+        severity: 'INFORMATIONAL',
+        hint: null,
+        attributes: {
+            tls_versions: getAllSupportedTlsVersions(serverScanResult),
+            cipher_suites: getAllAcceptedCipherSuites(serverScanResult),
+        },
+    };
 }
 
 function generateVulnarableTLSVersionFindings(serverScanResult) {

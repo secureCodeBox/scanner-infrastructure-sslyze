@@ -66,10 +66,21 @@ test('parses result file for tls-v1-0.badssl.com:1010 correctly', async () => {
             ip_address: '104.154.89.105',
             port: 1010,
             tls_versions: ['TLS 1.0'],
-            cipher_suites: ["CAMELLIA256-SHA", "CAMELLIA128-SHA", "AES256-SHA", "AES128-SHA", "ECDHE-RSA-AES256-SHA", "ECDHE-RSA-AES128-SHA", "DHE-RSA-CAMELLIA256-SHA", "DHE-RSA-CAMELLIA128-SHA", "DHE-RSA-AES256-SHA", "DHE-RSA-AES128-SHA"],
+            cipher_suites: [
+                'CAMELLIA256-SHA',
+                'CAMELLIA128-SHA',
+                'AES256-SHA',
+                'AES128-SHA',
+                'ECDHE-RSA-AES256-SHA',
+                'ECDHE-RSA-AES128-SHA',
+                'DHE-RSA-CAMELLIA256-SHA',
+                'DHE-RSA-CAMELLIA128-SHA',
+                'DHE-RSA-AES256-SHA',
+                'DHE-RSA-AES128-SHA',
+            ],
         },
     });
-    
+
     expect(findings).toContainEqual({
         name: 'TLS Version TLS 1.0 is considered insecure',
         category: 'Outdated TLS Version',
@@ -83,7 +94,7 @@ test('parses result file for tls-v1-0.badssl.com:1010 correctly', async () => {
             hostname: 'tls-v1-0.badssl.com',
             ip_address: '104.154.89.105',
             port: 1010,
-            outdated_version: 'TLS 1.0'
+            outdated_version: 'TLS 1.0',
         },
     });
 });
