@@ -95,10 +95,10 @@ function generateInformationalServiceFinding(serverScanResult) {
 function generateVulnarableTLSVersionFindings(serverScanResult) {
     const supportedTlsVersions = getAllSupportedTlsVersions(serverScanResult);
 
-    const VULNARABLE_VERSIONS = ['SSL 2.0', 'SSL 3.0', 'TLS 1.0'];
+    const DEPRECATED_VERSIONS = ['SSL 2.0', 'SSL 3.0', 'TLS 1.0', 'TLS 1.1'];
 
     const findings = supportedTlsVersions
-        .filter(tlsVersion => VULNARABLE_VERSIONS.includes(tlsVersion))
+        .filter(tlsVersion => DEPRECATED_VERSIONS.includes(tlsVersion))
         .map(tlsVersion => {
             return {
                 name: `TLS Version ${tlsVersion} is considered insecure`,
