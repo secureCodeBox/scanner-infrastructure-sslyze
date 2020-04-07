@@ -41,6 +41,8 @@ test('parses result file for www.securecodebox.io correctly', async () => {
             ],
         },
     });
+
+    expect(findings.length).toEqual(1);
 });
 
 test('parses result file for tls-v1-0.badssl.com:1010 correctly', async () => {
@@ -96,5 +98,76 @@ test('parses result file for tls-v1-0.badssl.com:1010 correctly', async () => {
             port: 1010,
             outdated_version: 'TLS 1.0',
         },
+    });
+
+    expect(findings.length).toEqual(2);
+});
+
+test('parses result file for expired.badssl.com correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/expired.badssl.com.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toContainEqual({
+        name: 'TLS Service',
+        category: 'TLS Service Info',
+        description: '',
+        severity: 'INFORMATIONAL',
+        osi_layer: 'PRESENTATION',
+        hint: null,
+        reference: null,
+        location: 'expired.badssl.com:443',
+        attributes: {
+            hostname: 'expired.badssl.com',
+            ip_address: '104.154.89.105',
+            port: 443,
+            tls_versions: ['TLS 1.0', 'TLS 1.1', 'TLS 1.2'],
+            cipher_suites: [
+                'CAMELLIA256-SHA',
+                'CAMELLIA128-SHA',
+                'AES256-SHA',
+                'AES128-SHA',
+                'DES-CBC3-SHA',
+                'ECDHE-RSA-AES256-SHA',
+                'ECDHE-RSA-AES128-SHA',
+                'ECDHE-RSA-DES-CBC3-SHA',
+                'DHE-RSA-CAMELLIA256-SHA',
+                'DHE-RSA-CAMELLIA128-SHA',
+                'DHE-RSA-AES256-SHA',
+                'DHE-RSA-AES128-SHA',
+                'AES256-GCM-SHA384',
+                'AES256-SHA256',
+                'AES128-GCM-SHA256',
+                'AES128-SHA256',
+                'ECDHE-RSA-AES256-GCM-SHA384',
+                'ECDHE-RSA-AES256-SHA384',
+                'ECDHE-RSA-AES128-GCM-SHA256',
+                'ECDHE-RSA-AES128-SHA256',
+                'DHE-RSA-AES256-GCM-SHA384',
+                'DHE-RSA-AES256-SHA256',
+                'DHE-RSA-AES128-GCM-SHA256',
+                'DHE-RSA-AES128-SHA256',
+            ],
+        },
+    });
+
+    expect(findings).toContainEqual({
+        attributes: {
+            hostname: 'expired.badssl.com',
+            ip_address: '104.154.89.105',
+            port: 443,
+        },
+        category: 'Invalid Certificate',
+        description: 'Certificate has expired',
+        hint: null,
+        location: 'expired.badssl.com:443',
+        name: 'Expired Certificate',
+        osi_layer: 'PRESENTATION',
+        reference: null,
+        severity: 'MEDIUM',
     });
 });
