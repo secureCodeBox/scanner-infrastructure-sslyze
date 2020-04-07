@@ -9,7 +9,7 @@
         "start": "node index.js",
         "lint": "eslint index.js src/",
         "pretest": "npm run lint",
-        "test": "jest --silent --coverage src/*.js",
+        "test": "jest --coverage src/*.js",
         "build-dev": "docker build -t dev_sslyze ."
     },
     "repository": {
