@@ -71,7 +71,10 @@ function getAllSupportedTlsVersions(serverScanResult) {
 
     for (const tlsScanResult of tlsScanResults) {
         // Should have at least one accepted cipher suite to be considered "supported"
-        if (tlsScanResult.accepted_cipher_suites.length > 0) {
+        if (
+            tlsScanResult.accepted_cipher_suites &&
+            tlsScanResult.accepted_cipher_suites.length > 0
+        ) {
             supportedVersions.push(tlsScanResult.name);
         }
     }
