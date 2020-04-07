@@ -156,18 +156,87 @@ test('parses result file for expired.badssl.com correctly', async () => {
     });
 
     expect(findings).toContainEqual({
+        name: 'Expired Certificate',
+        description: 'Certificate has expired',
+        category: 'Invalid Certificate',
+        severity: 'MEDIUM',
+        location: 'expired.badssl.com:443',
         attributes: {
             hostname: 'expired.badssl.com',
             ip_address: '104.154.89.105',
             port: 443,
         },
-        category: 'Invalid Certificate',
-        description: 'Certificate has expired',
         hint: null,
-        location: 'expired.badssl.com:443',
-        name: 'Expired Certificate',
         osi_layer: 'PRESENTATION',
         reference: null,
+    });
+});
+
+test('parses result file for wrong.host.badssl.com correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/wrong.host.badssl.com.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toContainEqual({
+        name: 'TLS Service',
+        category: 'TLS Service Info',
+        description: '',
+        severity: 'INFORMATIONAL',
+        osi_layer: 'PRESENTATION',
+        hint: null,
+        reference: null,
+        location: 'wrong.host.badssl.com:443',
+        attributes: {
+            hostname: 'wrong.host.badssl.com',
+            ip_address: '104.154.89.105',
+            port: 443,
+            tls_versions: ['TLS 1.0', 'TLS 1.1', 'TLS 1.2'],
+            cipher_suites: [
+                'CAMELLIA256-SHA',
+                'CAMELLIA128-SHA',
+                'AES256-SHA',
+                'AES128-SHA',
+                'DES-CBC3-SHA',
+                'ECDHE-RSA-AES256-SHA',
+                'ECDHE-RSA-AES128-SHA',
+                'ECDHE-RSA-DES-CBC3-SHA',
+                'DHE-RSA-CAMELLIA256-SHA',
+                'DHE-RSA-CAMELLIA128-SHA',
+                'DHE-RSA-AES256-SHA',
+                'DHE-RSA-AES128-SHA',
+                'AES256-GCM-SHA384',
+                'AES256-SHA256',
+                'AES128-GCM-SHA256',
+                'AES128-SHA256',
+                'ECDHE-RSA-AES256-GCM-SHA384',
+                'ECDHE-RSA-AES256-SHA384',
+                'ECDHE-RSA-AES128-GCM-SHA256',
+                'ECDHE-RSA-AES128-SHA256',
+                'DHE-RSA-AES256-GCM-SHA384',
+                'DHE-RSA-AES256-SHA256',
+                'DHE-RSA-AES128-GCM-SHA256',
+                'DHE-RSA-AES128-SHA256',
+            ],
+        },
+    });
+
+    expect(findings).toContainEqual({
+        name: 'Invalid Hostname',
+        description: 'Hostname of Server didnt match the certifiactes subject names',
+        category: 'Invalid Certificate',
         severity: 'MEDIUM',
+        location: 'wrong.host.badssl.com:443',
+        attributes: {
+            hostname: 'wrong.host.badssl.com',
+            ip_address: '104.154.89.105',
+            port: 443,
+        },
+        hint: null,
+        osi_layer: 'PRESENTATION',
+        reference: null,
     });
 });
