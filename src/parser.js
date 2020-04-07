@@ -4,6 +4,7 @@ function parse(fileContent) {
     const partialFindings = [
         generateInformationalServiceFinding(serverScanResult),
         ...generateVulnarableTLSVersionFindings(serverScanResult),
+        ...analyseCertificateDeployments(serverScanResult),
     ];
 
     const serverInfo = serverScanResult.server_info;
@@ -115,35 +116,6 @@ function generateVulnarableTLSVersionFindings(serverScanResult) {
     return findings;
 }
 
-// const deployments = [
-//     {
-//         'matchesHostname': true,
-//         trustStores: [
-//             {
-//                 openSslErrorString: 'self-signed',
-//                 name: 'Android',
-//             },
-//             {
-//                 openSslErrorString: null,
-//                 name: 'ios',
-//             },
-//         ]
-//     }, => { trused: false, self-signed: true, }
-//     {
-//         'matchesHostname': true,
-//         trustStores: [
-//             {
-//                 openSslErrorString: null,
-//                 name: 'Android',
-//             },
-//             {
-//                 openSslErrorString: null,
-//                 name: 'ios',
-//             },
-//         ]
-//     }, => { trused: true, self-signed: false, }
-// ] => []
-
 function analyseCertificateDeployments(serverScanResult) {
     const certificateInfos = serverScanResult.scan_commands_results.certificate_info.certificate_deployments.map(
         analyseCertificateDeployment
@@ -159,16 +131,45 @@ function analyseCertificateDeployments(serverScanResult) {
     const findingTemplates = [];
     for (const certInfo of certificateInfos) {
         if (certInfo.matchesHostname === false) {
-            findingTemplates.push({ name: 'Wrong Hostname' });
+            findingTemplates.push({
+                name: 'Invalid Hostname',
+                description: 'Hostname of Server didnt match the certifiactes subject names',
+            });
+        } else if (certInfo.selfSigned === true) {
+            findingTemplates.push({
+                name: 'Self-Signed Certificate',
+                description: 'Certificate is self-signed',
+            });
+        } else if (certInfo.expired === true) {
+            findingTemplates.push({
+                name: 'Expired Certificate',
+                description: 'Certificate has expired',
+            });
+        } else if (certInfo.untrusedRoot === true) {
+            findingTemplates.push({
+                name: 'Untrusted Certificate Root',
+                description: 'The certificate chain contains a certificate not trusted ',
+            });
         }
     }
+
+    return findingTemplates.map(findingTemplate => {
+        return {
+            name: findingTemplate.name,
+            category: 'Invalid Certificate',
+            description: findingTemplate.description,
+            severity: 'MEDIUM',
+            hint: null,
+            attributes: {},
+        };
+    });
 }
 
 function analyseCertificateDeployment(certificateDeployment) {
     const errorsAcrossAllTruststores = new Set();
 
-    for (const validationResult of certificateDeployment.path_validation_results) {
-        errorsAcrossAllTruststores.add(validationResult.openssl_error_string);
+    for (const { openssl_error_string } of certificateDeployment.path_validation_results) {
+        errorsAcrossAllTruststores.add(openssl_error_string);
     }
 
     const matchesHostname = certificateDeployment.leaf_certificate_subject_matches_hostname;
@@ -184,10 +185,3 @@ function analyseCertificateDeployment(certificateDeployment) {
         ),
     };
 }
-
-// Category: "Invalid Certificate"
-// Name: "Self-Signed Certificate"
-// Name: "Expired Certificate"
-// Name: "Untrusted Certificate Root"
-// Name: "Wrong Host"
-// Name: "Certificate Revoked"
