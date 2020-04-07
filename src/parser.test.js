@@ -390,3 +390,15 @@ test('parses an empty result file correctly', async () => {
 
     expect(findings).toEqual([]);
 });
+
+test('parses an result file with mixed connectivity correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/mixed-connectivity-result.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toEqual([]);
+});

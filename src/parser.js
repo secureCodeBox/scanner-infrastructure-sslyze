@@ -6,6 +6,11 @@ function parse(fileContent) {
 
     const serverScanResult = fileContent.server_scan_results[0];
 
+    if (Object.keys(serverScanResult.scan_commands_errors).length >= 1) {
+        console.error('Cannot parse the result as some of the scan parts failed.');
+        return [];
+    }
+
     if (process.env['DEBUG'] === 'true') {
         console.log('Parsing Result File');
         console.log(JSON.stringify(fileContent));
