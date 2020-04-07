@@ -54,7 +54,7 @@ function getAllAcceptedCipherSuites(serverScanResult) {
     const supportedVersions = new Set();
 
     for (const tlsScanResult of tlsScanResults) {
-        for (const acceptedCipherSuit of tlsScanResult.accepted_cipher_suites) {
+        for (const acceptedCipherSuit of tlsScanResult.accepted_cipher_suites || []) {
             supportedVersions.add(acceptedCipherSuit.cipher_suite.openssl_name);
         }
     }
