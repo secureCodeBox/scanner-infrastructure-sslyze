@@ -6,6 +6,11 @@ function parse(fileContent) {
 
     const serverScanResult = fileContent.server_scan_results[0];
 
+    if (process.env['DEBUG'] === 'true') {
+        console.log('Parsing Result File');
+        console.log(JSON.stringify(fileContent));
+    }
+
     const partialFindings = [
         generateInformationalServiceFinding(serverScanResult),
         ...generateVulnarableTLSVersionFindings(serverScanResult),
