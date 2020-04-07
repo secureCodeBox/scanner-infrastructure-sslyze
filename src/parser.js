@@ -114,3 +114,80 @@ function generateVulnarableTLSVersionFindings(serverScanResult) {
 
     return findings;
 }
+
+// const deployments = [
+//     {
+//         'matchesHostname': true,
+//         trustStores: [
+//             {
+//                 openSslErrorString: 'self-signed',
+//                 name: 'Android',
+//             },
+//             {
+//                 openSslErrorString: null,
+//                 name: 'ios',
+//             },
+//         ]
+//     }, => { trused: false, self-signed: true, }
+//     {
+//         'matchesHostname': true,
+//         trustStores: [
+//             {
+//                 openSslErrorString: null,
+//                 name: 'Android',
+//             },
+//             {
+//                 openSslErrorString: null,
+//                 name: 'ios',
+//             },
+//         ]
+//     }, => { trused: true, self-signed: false, }
+// ] => []
+
+function analyseCertificateDeployments(serverScanResult) {
+    const certificateInfos = serverScanResult.scan_commands_results.certificate_info.certificate_deployments.map(
+        analyseCertificateDeployment
+    );
+
+    // If at least one cert is totally trusted no finding should be created
+    if (certificateInfos.every(certInfo => certInfo.trusted)) {
+        return [];
+    }
+
+    // No Cert Deployment is trused creating individual findings
+
+    const findingTemplates = [];
+    for (const certInfo of certificateInfos) {
+        if (certInfo.matchesHostname === false) {
+            findingTemplates.push({ name: 'Wrong Hostname' });
+        }
+    }
+}
+
+function analyseCertificateDeployment(certificateDeployment) {
+    const errorsAcrossAllTruststores = new Set();
+
+    for (const validationResult of certificateDeployment.path_validation_results) {
+        errorsAcrossAllTruststores.add(validationResult.openssl_error_string);
+    }
+
+    const matchesHostname = certificateDeployment.leaf_certificate_subject_matches_hostname;
+
+    return {
+        // To be trusted no openssl erros should have occured and should match hostname
+        trusted: errorsAcrossAllTruststores.size === 0 && matchesHostname,
+        matchesHostname,
+        selfSigned: errorsAcrossAllTruststores.has('self signed certificate'),
+        expired: errorsAcrossAllTruststores.has('certificate has expired'),
+        untrusedRoot: errorsAcrossAllTruststores.has(
+            'self signed certificate in certificate chain'
+        ),
+    };
+}
+
+// Category: "Invalid Certificate"
+// Name: "Self-Signed Certificate"
+// Name: "Expired Certificate"
+// Name: "Untrusted Certificate Root"
+// Name: "Wrong Host"
+// Name: "Certificate Revoked"
