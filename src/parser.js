@@ -169,7 +169,9 @@ function analyseCertificateDeployment(certificateDeployment) {
     const errorsAcrossAllTruststores = new Set();
 
     for (const { openssl_error_string } of certificateDeployment.path_validation_results) {
-        errorsAcrossAllTruststores.add(openssl_error_string);
+        if (openssl_error_string !== null) {
+            errorsAcrossAllTruststores.add(openssl_error_string);
+        }
     }
 
     const matchesHostname = certificateDeployment.leaf_certificate_subject_matches_hostname;
