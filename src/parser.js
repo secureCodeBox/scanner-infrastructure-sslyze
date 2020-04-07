@@ -1,4 +1,9 @@
 function parse(fileContent) {
+    // Only 0 when the target wasn't reachable
+    if (fileContent.server_scan_results.length === 0) {
+        return [];
+    }
+
     const serverScanResult = fileContent.server_scan_results[0];
 
     const partialFindings = [

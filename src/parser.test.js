@@ -378,3 +378,15 @@ test('parses result file for self-signed.badssl.com correctly', async () => {
         reference: null,
     });
 });
+
+test('parses an empty result file correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/unavailible-host.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toEqual([]);
+});
