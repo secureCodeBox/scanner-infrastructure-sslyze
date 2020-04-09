@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
-RUN pip install sslyze==3.0.0 && \
+RUN pip install sslyze==3.0.1 && \
     python -m sslyze --update_trust_store
 
 COPY --from=node-build /src /src
