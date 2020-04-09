@@ -7,7 +7,7 @@ function parse(fileContent) {
     const serverScanResult = fileContent.server_scan_results[0];
 
     if (Object.keys(serverScanResult.scan_commands_errors).length >= 1) {
-        console.error('Cannot parse the result as some of the scan parts failed.');
+        console.error('Cannot parse the result file, as some of the scan parts failed.');
         return [];
     }
 
