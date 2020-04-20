@@ -18,7 +18,7 @@ function parse(fileContent) {
 
     const partialFindings = [
         generateInformationalServiceFinding(serverScanResult),
-        ...generateVulnarableTLSVersionFindings(serverScanResult),
+        ...generateVulnerableTLSVersionFindings(serverScanResult),
         ...analyseCertificateDeployments(serverScanResult),
     ];
 
@@ -26,8 +26,8 @@ function parse(fileContent) {
     const { ip_address, hostname, port } = serverInfo.server_location;
     const location = `${hostname || ip_address}:${port}`;
 
-    // Enhance partialFindings with common properties shared accross all sslyze findings
-    const findings = partialFindings.map(partialFinding => {
+    // Enhance partialFindings with common properties shared across all SSLyze findings
+    const findings = partialFindings.map((partialFinding) => {
         return {
             osi_layer: 'PRESENTATION',
             reference: null,
@@ -61,7 +61,7 @@ function getTlsScanResultsAsArray(serverScanResult) {
     ];
 }
 
-// Returns all supported cipher suites accoress all tls and ssl version as one big string array
+// Returns all supported cipher suites across all tls and ssl version as one big string array
 function getAllAcceptedCipherSuites(serverScanResult) {
     const tlsScanResults = getTlsScanResultsAsArray(serverScanResult);
 
@@ -111,18 +111,18 @@ function generateInformationalServiceFinding(serverScanResult) {
     };
 }
 
-function generateVulnarableTLSVersionFindings(serverScanResult) {
+function generateVulnerableTLSVersionFindings(serverScanResult) {
     const supportedTlsVersions = getAllSupportedTlsVersions(serverScanResult);
 
     const DEPRECATED_VERSIONS = ['SSL 2.0', 'SSL 3.0', 'TLS 1.0', 'TLS 1.1'];
 
     const findings = supportedTlsVersions
-        .filter(tlsVersion => DEPRECATED_VERSIONS.includes(tlsVersion))
-        .map(tlsVersion => {
+        .filter((tlsVersion) => DEPRECATED_VERSIONS.includes(tlsVersion))
+        .map((tlsVersion) => {
             return {
                 name: `TLS Version ${tlsVersion} is considered insecure`,
                 category: 'Outdated TLS Version',
-                description: 'The server uses outdated or unsecure tls versions.',
+                description: 'The server uses outdated or insecure tls versions.',
                 severity: 'MEDIUM',
                 hint: 'Upgrade to a higher tls version.',
                 attributes: {
@@ -140,18 +140,18 @@ function analyseCertificateDeployments(serverScanResult) {
     );
 
     // If at least one cert is totally trusted no finding should be created
-    if (certificateInfos.every(certInfo => certInfo.trusted)) {
+    if (certificateInfos.every((certInfo) => certInfo.trusted)) {
         return [];
     }
 
-    // No Cert Deployment is trused creating individual findings
+    // No Cert Deployment is trusted, creating individual findings
 
     const findingTemplates = [];
     for (const certInfo of certificateInfos) {
         if (certInfo.matchesHostname === false) {
             findingTemplates.push({
                 name: 'Invalid Hostname',
-                description: 'Hostname of Server didnt match the certifiactes subject names',
+                description: "Hostname of Server didn't match the certificates subject names",
             });
         } else if (certInfo.selfSigned === true) {
             findingTemplates.push({
@@ -163,7 +163,7 @@ function analyseCertificateDeployments(serverScanResult) {
                 name: 'Expired Certificate',
                 description: 'Certificate has expired',
             });
-        } else if (certInfo.untrusedRoot === true) {
+        } else if (certInfo.untrustedRoot === true) {
             findingTemplates.push({
                 name: 'Untrusted Certificate Root',
                 description: 'The certificate chain contains a certificate not trusted ',
@@ -171,7 +171,7 @@ function analyseCertificateDeployments(serverScanResult) {
         }
     }
 
-    return findingTemplates.map(findingTemplate => {
+    return findingTemplates.map((findingTemplate) => {
         return {
             name: findingTemplate.name,
             category: 'Invalid Certificate',
@@ -195,12 +195,12 @@ function analyseCertificateDeployment(certificateDeployment) {
     const matchesHostname = certificateDeployment.leaf_certificate_subject_matches_hostname;
 
     return {
-        // To be trusted no openssl erros should have occured and should match hostname
+        // To be trusted no openssl errors should have occurred and should match hostname
         trusted: errorsAcrossAllTruststores.size === 0 && matchesHostname,
         matchesHostname,
         selfSigned: errorsAcrossAllTruststores.has('self signed certificate'),
         expired: errorsAcrossAllTruststores.has('certificate has expired'),
-        untrusedRoot: errorsAcrossAllTruststores.has(
+        untrustedRoot: errorsAcrossAllTruststores.has(
             'self signed certificate in certificate chain'
         ),
     };

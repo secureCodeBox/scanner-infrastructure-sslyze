@@ -86,7 +86,7 @@ test('parses result file for tls-v1-0.badssl.com:1010 correctly', async () => {
     expect(findings).toContainEqual({
         name: 'TLS Version TLS 1.0 is considered insecure',
         category: 'Outdated TLS Version',
-        description: 'The server uses outdated or unsecure tls versions.',
+        description: 'The server uses outdated or insecure tls versions.',
         severity: 'MEDIUM',
         hint: 'Upgrade to a higher tls version.',
         osi_layer: 'PRESENTATION',
@@ -226,7 +226,7 @@ test('parses result file for wrong.host.badssl.com correctly', async () => {
 
     expect(findings).toContainEqual({
         name: 'Invalid Hostname',
-        description: 'Hostname of Server didnt match the certifiactes subject names',
+        description: "Hostname of Server didn't match the certificates subject names",
         category: 'Invalid Certificate',
         severity: 'MEDIUM',
         location: 'wrong.host.badssl.com:443',

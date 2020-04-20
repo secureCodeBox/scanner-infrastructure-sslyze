@@ -47,7 +47,7 @@ async function worker(targets) {
     }
 
     return {
-        result: findings.map(finding => {
+        result: findings.map((finding) => {
             return { id: uuid(), ...finding };
         }),
     };
