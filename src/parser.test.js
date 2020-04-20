@@ -402,3 +402,31 @@ test('parses an result file with mixed connectivity correctly', async () => {
 
     expect(findings).toEqual([]);
 });
+
+test('parses an result file with mixed connectivity correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/heartbleed-vulnerable.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toContainEqual({
+        name: 'Heartbleed',
+        description: 'TLS Service is vulnerable to Heartbleed',
+        category: 'TLS Vulnerability',
+        severity: 'HIGH',
+        location: 'www.securecodebox.io:443',
+        attributes: {
+            hostname: 'www.securecodebox.io',
+            ip_address: '185.199.109.153',
+            port: 443,
+        },
+        osi_layer: 'PRESENTATION',
+        reference: {
+            id: 'CVE-2014-0160',
+            source: 'https://nvd.nist.gov/vuln/detail/CVE-2014-0160',
+        },
+    });
+});

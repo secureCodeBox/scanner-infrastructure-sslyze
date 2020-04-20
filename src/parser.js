@@ -20,6 +20,7 @@ function parse(fileContent) {
         generateInformationalServiceFinding(serverScanResult),
         ...generateVulnerableTLSVersionFindings(serverScanResult),
         ...analyseCertificateDeployments(serverScanResult),
+        ...analyseForHeartbleedVulnerability(serverScanResult),
     ];
 
     const serverInfo = serverScanResult.server_info;
@@ -204,4 +205,27 @@ function analyseCertificateDeployment(certificateDeployment) {
             'self signed certificate in certificate chain'
         ),
     };
+}
+
+function analyseForHeartbleedVulnerability(serverScanResult) {
+    if (
+        serverScanResult.scan_commands_results &&
+        serverScanResult.scan_commands_results.heartbleed &&
+        serverScanResult.scan_commands_results.heartbleed.is_vulnerable_to_heartbleed
+    ) {
+        return [
+            {
+                name: 'Heartbleed',
+                description: 'TLS Service is vulnerable to Heartbleed',
+                category: 'TLS Vulnerability',
+                severity: 'HIGH',
+                reference: {
+                    id: 'CVE-2014-0160',
+                    source: 'https://nvd.nist.gov/vuln/detail/CVE-2014-0160',
+                },
+                attributes: {},
+            },
+        ];
+    }
+    return [];
 }
