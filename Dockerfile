@@ -1,10 +1,12 @@
 FROM node:12-alpine as node-build
 
+COPY lib/node-sslyze/package.json lib/node-sslyze/package-lock.json /src/lib/node-sslyze/
+WORKDIR /src/lib/node-sslyze/
+RUN npm ci --production
+
 COPY package.json package-lock.json /src/
-
 WORKDIR /src
-
-RUN npm install --production
+RUN npm ci --production
 
 COPY lib/ src/lib/
 COPY . /src
