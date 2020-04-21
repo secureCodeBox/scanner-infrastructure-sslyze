@@ -30,7 +30,7 @@ function parse(fileContent) {
     const location = `${hostname || ip_address}:${port}`;
 
     // Enhance partialFindings with common properties shared across all SSLyze findings
-    const findings = partialFindings.map(partialFinding => {
+    const findings = partialFindings.map((partialFinding) => {
         return {
             osi_layer: 'PRESENTATION',
             reference: null,
@@ -120,8 +120,8 @@ function generateVulnerableTLSVersionFindings(serverScanResult) {
     const DEPRECATED_VERSIONS = ['SSL 2.0', 'SSL 3.0', 'TLS 1.0', 'TLS 1.1'];
 
     const findings = supportedTlsVersions
-        .filter(tlsVersion => DEPRECATED_VERSIONS.includes(tlsVersion))
-        .map(tlsVersion => {
+        .filter((tlsVersion) => DEPRECATED_VERSIONS.includes(tlsVersion))
+        .map((tlsVersion) => {
             return {
                 name: `TLS Version ${tlsVersion} is considered insecure`,
                 category: 'Outdated TLS Version',
@@ -143,7 +143,7 @@ function analyseCertificateDeployments(serverScanResult) {
     );
 
     // If at least one cert is totally trusted no finding should be created
-    if (certificateInfos.every(certInfo => certInfo.trusted)) {
+    if (certificateInfos.every((certInfo) => certInfo.trusted)) {
         return [];
     }
 
@@ -174,7 +174,7 @@ function analyseCertificateDeployments(serverScanResult) {
         }
     }
 
-    return findingTemplates.map(findingTemplate => {
+    return findingTemplates.map((findingTemplate) => {
         return {
             name: findingTemplate.name,
             category: 'Invalid Certificate',
