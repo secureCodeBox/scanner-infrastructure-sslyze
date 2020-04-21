@@ -21,6 +21,7 @@ function parse(fileContent) {
         ...generateVulnerableTLSVersionFindings(serverScanResult),
         ...analyseCertificateDeployments(serverScanResult),
         ...analyseForHeartbleedVulnerability(serverScanResult),
+        ...analyseForCcsInjectionVulnerability(serverScanResult),
     ];
 
     const serverInfo = serverScanResult.server_info;
@@ -28,7 +29,7 @@ function parse(fileContent) {
     const location = `${hostname || ip_address}:${port}`;
 
     // Enhance partialFindings with common properties shared across all SSLyze findings
-    const findings = partialFindings.map((partialFinding) => {
+    const findings = partialFindings.map(partialFinding => {
         return {
             osi_layer: 'PRESENTATION',
             reference: null,
@@ -118,8 +119,8 @@ function generateVulnerableTLSVersionFindings(serverScanResult) {
     const DEPRECATED_VERSIONS = ['SSL 2.0', 'SSL 3.0', 'TLS 1.0', 'TLS 1.1'];
 
     const findings = supportedTlsVersions
-        .filter((tlsVersion) => DEPRECATED_VERSIONS.includes(tlsVersion))
-        .map((tlsVersion) => {
+        .filter(tlsVersion => DEPRECATED_VERSIONS.includes(tlsVersion))
+        .map(tlsVersion => {
             return {
                 name: `TLS Version ${tlsVersion} is considered insecure`,
                 category: 'Outdated TLS Version',
@@ -141,7 +142,7 @@ function analyseCertificateDeployments(serverScanResult) {
     );
 
     // If at least one cert is totally trusted no finding should be created
-    if (certificateInfos.every((certInfo) => certInfo.trusted)) {
+    if (certificateInfos.every(certInfo => certInfo.trusted)) {
         return [];
     }
 
@@ -172,7 +173,7 @@ function analyseCertificateDeployments(serverScanResult) {
         }
     }
 
-    return findingTemplates.map((findingTemplate) => {
+    return findingTemplates.map(findingTemplate => {
         return {
             name: findingTemplate.name,
             category: 'Invalid Certificate',
@@ -222,6 +223,29 @@ function analyseForHeartbleedVulnerability(serverScanResult) {
                 reference: {
                     id: 'CVE-2014-0160',
                     source: 'https://nvd.nist.gov/vuln/detail/CVE-2014-0160',
+                },
+                attributes: {},
+            },
+        ];
+    }
+    return [];
+}
+
+function analyseForCcsInjectionVulnerability(serverScanResult) {
+    if (
+        serverScanResult.scan_commands_results &&
+        serverScanResult.scan_commands_results.openssl_ccs_injection &&
+        serverScanResult.scan_commands_results.openssl_ccs_injection.is_vulnerable_to_ccs_injection
+    ) {
+        return [
+            {
+                name: 'CCS Injection',
+                description: 'TLS Service is vulnerable to CCS Injection',
+                category: 'TLS Vulnerability',
+                severity: 'HIGH',
+                reference: {
+                    id: 'CVE-2014-0224',
+                    source: 'https://nvd.nist.gov/vuln/detail/CVE-2014-0224',
                 },
                 attributes: {},
             },
