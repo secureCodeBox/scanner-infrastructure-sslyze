@@ -458,3 +458,60 @@ test('parses ccs injection result file correctly', async () => {
         },
     });
 });
+
+test('parses robot vulnerable result file correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/robot-vulnerable.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toContainEqual({
+        name: 'ROBOT',
+        description: 'TLS Service is vulnerable to ROBOT Attacks',
+        category: 'TLS Vulnerability',
+        severity: 'HIGH',
+        location: 'www.securecodebox.io:443',
+        attributes: {
+            hostname: 'www.securecodebox.io',
+            ip_address: '185.199.109.153',
+            port: 443,
+        },
+        osi_layer: 'PRESENTATION',
+        reference: {
+            id: 'CVE-2017-13099',
+            source: 'https://nvd.nist.gov/vuln/detail/CVE-2017-13099',
+        },
+    });
+});
+
+test('parses weak robot vulnerable result file correctly', async () => {
+    const fileContent = JSON.parse(
+        await readFile(__dirname + '/__testFiles__/robot-weak-vulnerable.json', {
+            encoding: 'utf8',
+        })
+    );
+
+    const findings = await parse(fileContent);
+
+    expect(findings).toContainEqual({
+        name: 'ROBOT Weak',
+        description:
+            'TLS Service is vulnerable to ROBOT Attacks, but an Attack against this server would require a currently unrealistic computational capacity',
+        category: 'TLS Vulnerability',
+        severity: 'MEDIUM',
+        location: 'www.securecodebox.io:443',
+        attributes: {
+            hostname: 'www.securecodebox.io',
+            ip_address: '185.199.109.153',
+            port: 443,
+        },
+        osi_layer: 'PRESENTATION',
+        reference: {
+            id: 'CVE-2017-13099',
+            source: 'https://nvd.nist.gov/vuln/detail/CVE-2017-13099',
+        },
+    });
+});

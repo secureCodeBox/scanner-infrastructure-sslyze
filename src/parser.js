@@ -22,6 +22,7 @@ function parse(fileContent) {
         ...analyseCertificateDeployments(serverScanResult),
         ...analyseForHeartbleedVulnerability(serverScanResult),
         ...analyseForCcsInjectionVulnerability(serverScanResult),
+        ...analyseForRobotVulnerability(serverScanResult),
     ];
 
     const serverInfo = serverScanResult.server_info;
@@ -250,6 +251,39 @@ function analyseForCcsInjectionVulnerability(serverScanResult) {
                 attributes: {},
             },
         ];
+    }
+    return [];
+}
+
+function analyseForRobotVulnerability(serverScanResult) {
+    if (
+        serverScanResult.scan_commands_results &&
+        serverScanResult.scan_commands_results.robot &&
+        serverScanResult.scan_commands_results.robot.robot_result
+    ) {
+        const robotResult = serverScanResult.scan_commands_results.robot.robot_result;
+        if (
+            robotResult === 'VULNERABLE_STRONG_ORACLE' ||
+            robotResult === 'VULNERABLE_WEAK_ORACLE'
+        ) {
+            // A weak vulnerable service would take unrealistic computational resources to exploit
+            const isWeak = robotResult === 'VULNERABLE_WEAK_ORACLE';
+            return [
+                {
+                    name: isWeak ? 'ROBOT Weak' : 'ROBOT',
+                    description: isWeak
+                        ? 'TLS Service is vulnerable to ROBOT Attacks, but an Attack against this server would require a currently unrealistic computational capacity'
+                        : 'TLS Service is vulnerable to ROBOT Attacks',
+                    category: 'TLS Vulnerability',
+                    severity: isWeak ? 'MEDIUM' : 'HIGH',
+                    reference: {
+                        id: 'CVE-2017-13099',
+                        source: 'https://nvd.nist.gov/vuln/detail/CVE-2017-13099',
+                    },
+                    attributes: {},
+                },
+            ];
+        }
     }
     return [];
 }
