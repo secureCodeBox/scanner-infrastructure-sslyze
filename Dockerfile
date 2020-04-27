@@ -19,7 +19,7 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
-RUN pip install sslyze==3.0.2 && \
+RUN pip install sslyze==3.0.3 && \
     python -m sslyze --update_trust_store
 
 COPY --from=node-build /src /src
