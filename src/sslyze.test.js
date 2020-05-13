@@ -17,55 +17,11 @@
  * /
  */
 
-const { transform, worker } = require('./sslyze');
-const uuid = require('uuid/v4');
+const { worker } = require('./sslyze');
 const sslscan = require('../lib/sslscan');
-const fs = require('fs');
-const { promisify } = require('util');
-const readFile = promisify(fs.readFile);
-
 jest.mock('../lib/sslscan');
 
-async function readFileForSite(site) {
-    const fileContents = await readFile(`src/__testFiles__/${site}.json`, {
-        encoding: 'utf8',
-    });
-    return JSON.parse(fileContents);
-}
-
 describe('sslyze', () => {
-    describe('transform', () => {
-        beforeAll(() => {
-            jest.mock('uuid/v4');
-        });
-
-        beforeEach(() => {
-            uuid.mockClear();
-        });
-
-        afterAll(() => {
-            jest.unmock('uuid/v4');
-        });
-
-        // In case of JSON Format changes regen the json file by running
-        // sslyze --regular expired.badssl.com --json_out=src/__testFiles__/expired.badssl.com.com.json
-        it('should transform a result with an expired certificate', async function() {
-            const results = await readFileForSite('expired.badssl.com');
-
-            const findings = transform(results);
-            expect(findings).toMatchSnapshot();
-        });
-
-        // In case of JSON Format changes regen the json file by running
-        // sslyze --regular securecodebox.io --json_out=src/__testFiles__/securecodebox.io.com.json
-        it('should transform a valid certificate', async function() {
-            const results = await readFileForSite('securecodebox.io');
-
-            const findings = transform(results);
-            expect(findings).toMatchSnapshot();
-        });
-    });
-
     describe('worker', () => {
         beforeEach(() => {
             sslscan.scanTarget.mockClear();

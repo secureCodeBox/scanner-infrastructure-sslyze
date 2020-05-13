@@ -1,10 +1,12 @@
 FROM node:12-alpine as node-build
 
+COPY lib/node-sslyze/package.json lib/node-sslyze/package-lock.json /src/lib/node-sslyze/
+WORKDIR /src/lib/node-sslyze/
+RUN npm ci --production
+
 COPY package.json package-lock.json /src/
-
 WORKDIR /src
-
-RUN npm install --production
+RUN npm ci --production
 
 COPY lib/ src/lib/
 COPY . /src
@@ -17,7 +19,7 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     apt-get -y clean
 
-RUN pip install sslyze==2.1.4 && \
+RUN pip install sslyze==3.0.3 && \
     python -m sslyze --update_trust_store
 
 COPY --from=node-build /src /src
