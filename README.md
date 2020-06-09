@@ -14,7 +14,7 @@ SSLyze is a Python library and a CLI tool that can analyze the SSL configuration
 # About
 This repository contains a self contained µService utilizing the SSLyze SSL scanner for the secureCodeBox Application. To learn more about the SSLyze scanner itself visit or [SSLyze GitHub].
 
-## Amass parameters
+## SSLyze parameters
 
 To hand over supported parameters through api usage, you can set following attributes:
 
